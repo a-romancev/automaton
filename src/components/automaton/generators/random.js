@@ -1,16 +1,20 @@
+import Field from "@/components/automaton/field.js"
+
 export default class RandomGenerator {
-    generate(width, height, density) {
-        let field = {
-            data:[]
-        }
-        for (let y = 0; y < height; y++) {
+    constructor(width, height, density) {
+        this.width = width
+        this.height = height
+        this.density = density
+    }
+
+    generate() {
+        let field = new Field()
+        for (let y = 0; y < this.height; y++) {
             field.data.push([])
-            for (let x = 0; x < width; x++) {
-                field.data[y].push(Math.random() < density)
+            for (let x = 0; x < this.width; x++) {
+                field.data[y].push(Math.random() < this.density)
             }
         }
         return field
     }
-
-
 }

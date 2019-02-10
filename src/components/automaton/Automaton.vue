@@ -7,6 +7,7 @@
 <script>
 import Renderer from "@/components/automaton/renderer.js"
 import RandomGenerator from "@/components/automaton/generators/random.js"
+import Evolution from "@/components/automaton/evolution.js"
 
 export default {
   name: 'Automaton',
@@ -15,9 +16,9 @@ export default {
   },
   methods: {
     start: function () {
-      var field = new RandomGenerator().generate(100, 100, 1)
-      var f = new Renderer(document.getElementsByClassName('canvas')[0], field)
-      f.start()
+      let field = new RandomGenerator(200, 200, 0.2).generate()
+      new Evolution(field).start()
+      new Renderer(document.getElementsByClassName('canvas')[0], field).start()
     }
   }
 }
@@ -26,6 +27,6 @@ export default {
 <style scoped lang="sass">
   .canvas
     border: red 2px solid
-    width: 500px
-    height: 500px
+    width: 1000px
+    height: 1000px
 </style>
