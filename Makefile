@@ -6,10 +6,10 @@ SCRIPT_FOLDER = `pwd`
 build:
 	docker build -t $(IMAGE_NAME) .
 
-run-cli:
-	docker build -t $(IMAGE_NAME) .
+serve:
 	docker run \
 		--rm -it --init \
-		-v $(SCRIPT_FOLDER)/vue/:/var/app/ \
+		-p 8080:8080 \
+		-v $(SCRIPT_FOLDER)/src:/var/app/src \
 		--name $(CONTAINER_NAME) $(IMAGE_NAME) \
-		vue create automaton
+		npm run serve

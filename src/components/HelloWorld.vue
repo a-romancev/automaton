@@ -33,6 +33,11 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods: {
+    show: function () {
+      alert("hello!")
+    }
   }
 }
 </script>
