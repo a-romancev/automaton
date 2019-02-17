@@ -1,7 +1,15 @@
 <template>
-  <div class="hello">
+
+  <div>
+    <div class="hello">
+      Evolution
+      <div class="explanation">
+        (Click inside to begin the process)
+      </div>
+    </div>
     <canvas @click="start" class="canvas"></canvas>
   </div>
+
 </template>
 
 <script>
@@ -16,17 +24,28 @@ export default {
   },
   methods: {
     start: function () {
-      let field = new RandomGenerator(200, 200, 0.2).generate()
+      let field = new RandomGenerator(200, 200, 0.15).generate()
       new Evolution(field).start()
       new Renderer(document.getElementsByClassName('canvas')[0], field).start()
     }
   }
 }
-</script>
-
+</script>s
 <style scoped lang="sass">
+
   .canvas
-    border: red 2px solid
-    width: 1000px
-    height: 1000px
+    border: #5f6872 5px solid
+    width: 900px
+    height: 800px
+
+  .hello
+    color: #fefeff
+    margin: 10px
+    text-align: center
+    font-size: 20px
+
+  .explanation
+    font-size: 12px
+    color: #a9b2b6
+
 </style>
