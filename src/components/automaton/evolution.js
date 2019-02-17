@@ -7,11 +7,13 @@ export default class Evolution {
         this.timer = null
     }
     start() {
+        this.stop()
         this.timer = setInterval(this.process.bind(this), 100)
     }
 
     stop() {
         clearInterval(this.timer)
+        this.timer = null
     }
 
     process() {

@@ -2,15 +2,16 @@ export default class Renderer {
     constructor (canvasElement, field) {
         this.element = canvasElement
         this.field = field
+        this.id = null
     }
 
     start () {
-        this.isRunning = true
+        this.stop()
         this.nextFrame()
     }
 
     stop () {
-        this.isRunning = false
+        window.cancelAnimationFrame(this.id)
     }
 
     render () {
@@ -33,6 +34,6 @@ export default class Renderer {
     }
 
     nextFrame () {
-        window.requestAnimationFrame(this.render.bind(this))
+        this.id = window.requestAnimationFrame(this.render.bind(this))
     }
 }

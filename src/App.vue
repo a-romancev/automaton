@@ -1,15 +1,17 @@
 <template>
   <div id="app" class="content">
-    <Automaton/>
+    <Evolution/>
   </div>
 </template>
 
 <script>
 import Automaton from './components/automaton/Automaton.vue'
+import Evolution from "./components/evolution/Evolution";
 
 export default {
   name: 'app',
   components: {
+      Evolution,
     Automaton
   }
 }
