@@ -4,7 +4,6 @@
 
 <script>
 import Renderer from "@/components/automaton/renderer.js"
-import RandomGenerator from "@/components/automaton/generators/random.js"
 import Evolution from "@/components/automaton/evolution.js"
 
 export default {
@@ -17,22 +16,27 @@ export default {
     },
 
     methods: {
-        start(resolution) {
+
+        generate(generator) {
             if (this.renderer) {
                 this.renderer.stop()
             }
+            this.field = generator.generate()
+            this.renderer = new Renderer(this.$refs.canvas, this.field)
+            this.renderer.start()
+        },
+
+        start() {
             if (this.evo) {
                 this.evo.stop()
             }
-            this.field = new RandomGenerator(resolution, resolution, 0.15).generate()
             this.evo = new Evolution(this.field)
-            this.renderer = new Renderer(this.$refs.canvas, this.field)
-            this.renderer.start()
             this.evo.start()
-        }
+        },
     }
 }
 </script>
+
 <style scoped lang="sass">
 
   .canvas

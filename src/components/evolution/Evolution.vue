@@ -11,6 +11,7 @@
     <div class="control-panel">
       Control panel
       <div @click="start" class="button">Start</div>
+      <div @click="generate" class="button">Generate</div>
       <div>{{ resolution }}</div>
       <input v-model="resolution" name="jopa" type="range" min="100" max="200" step="2">
     </div>
@@ -20,6 +21,9 @@
 
 <script>
     import Automaton from "../automaton/Automaton"
+    import RandomGenerator from "@/components/automaton/generators/random.js"
+    import UserGenerator from "@/components/automaton/generators/user.js"
+
     export default {
         name: 'Evolution',
 
@@ -32,8 +36,14 @@
         components: {Automaton},
 
         methods: {
+            generate() {
+                let generator = new UserGenerator(this.$data.resolution, this.$data.resolution, this.$refs.automation)
+                // let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, 0.15)
+                this.$refs.automation.generate(generator)
+            },
+
             start() {
-                this.$refs.automation.start(this.$data.resolution)
+                this.$refs.automation.start()
             },
         }
     }
@@ -65,4 +75,5 @@
   .button
     background-color: deepskyblue
     padding: 10px
+    border: grey 1px solid
 </style>
