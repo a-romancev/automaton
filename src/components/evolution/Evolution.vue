@@ -10,15 +10,22 @@
     <Automaton ref="automation"/>
     <div class="control-panel">
 
-      Control panel
-      <div @click="start" class="button">Start</div>
-      <div @click="generate" class="button">Generate</div>
+      <div class="control-panel-title">Control panel</div>
 
+      <div class="space"></div>
       <div>Resolution</div>
       <input v-model="resolution" type="range" min="10" max="150" step="5">
       <div>{{ resolution }}</div>
 
-      <div>Generate automaticly</div>
+      <div @click="start" class="button">Start</div>
+      <div @click="generate" class="button">Generate</div>
+
+      <div class="space"></div>
+      <div>Generate at random</div>
+      <input type="checkbox" v-model="checked">
+      <div>Density</div>
+      <input v-model="density" type="range" min="0.01" max="1" step="0.01">
+      <div>{{ density }}</div>
 
     </div>
   </div>
@@ -36,6 +43,8 @@
         data() {
             return {
                 resolution: 10,
+                density:0.01,
+                checked: false,
             }
         },
 
@@ -43,8 +52,11 @@
 
         methods: {
             generate() {
-                let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, 0.15)
-                // let generator = new UserGenerator(this.$data.resolution, this.$data.resolution, this.$refs.automation)
+                let generator = new UserGenerator(this.$data.resolution, this.$data.resolution, this.$refs.automation)
+                if (this.$data.checked) {
+                    generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, this.$data.density)
+                }
+                //let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, this.$data.density)
                 // let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, 0.15)
                 this.$refs.automation.generate(generator)
             },
@@ -83,12 +95,18 @@
     border: #58667c 5px solid
     display: block
 
+  .control-panel-title
+    font-size: 25px
+
   .button
     background-color: #49A078
     padding: 10px
     border: grey 1px solid
     margin: 5px
     cursor: pointer
+
+  .space
+    padding: 10px
 
 
 </style>
