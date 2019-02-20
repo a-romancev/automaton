@@ -18,7 +18,7 @@ export default class Renderer {
         this.element.width = this.element.clientWidth
         this.element.height = this.element.clientHeight
         const ctx = this.element.getContext('2d')
-        ctx.fillStyle = "#00897b"
+        ctx.fillStyle = "#49A078"
 
         let height = this.element.clientHeight / this.field.height()
         let width = this.element.clientWidth / this.field.width()

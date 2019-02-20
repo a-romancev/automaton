@@ -40,7 +40,7 @@ export default {
 <style scoped lang="sass">
 
   .canvas
-    border: #5f6872 5px solid
+    border: #58667c 5px solid
     width: 900px
     height: 800px
 

@@ -27,7 +27,7 @@ export default {
   display: inline-block
 
 .content
-  background-color: #3C4556
+  background-color: #3c4556
 
 body, html
   height: 100%

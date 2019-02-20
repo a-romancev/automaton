@@ -9,11 +9,17 @@
     </div>
     <Automaton ref="automation"/>
     <div class="control-panel">
+
       Control panel
       <div @click="start" class="button">Start</div>
       <div @click="generate" class="button">Generate</div>
+
+      <div>Resolution</div>
+      <input v-model="resolution" type="range" min="10" max="150" step="5">
       <div>{{ resolution }}</div>
-      <input v-model="resolution" name="jopa" type="range" min="100" max="200" step="2">
+
+      <div>Generate automaticly</div>
+
     </div>
   </div>
 
@@ -37,7 +43,8 @@
 
         methods: {
             generate() {
-                let generator = new UserGenerator(this.$data.resolution, this.$data.resolution, this.$refs.automation)
+                let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, 0.15)
+                // let generator = new UserGenerator(this.$data.resolution, this.$data.resolution, this.$refs.automation)
                 // let generator = new RandomGenerator(this.$data.resolution, this.$data.resolution, 0.15)
                 this.$refs.automation.generate(generator)
             },
@@ -71,9 +78,17 @@
     top: 0
     position: absolute
     color: whitesmoke
+    margin: 46px
+    padding: 10px
+    border: #58667c 5px solid
+    display: block
 
   .button
-    background-color: deepskyblue
+    background-color: #49A078
     padding: 10px
     border: grey 1px solid
+    margin: 5px
+    cursor: pointer
+
+
 </style>
