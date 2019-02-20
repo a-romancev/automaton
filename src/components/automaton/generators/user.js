@@ -43,6 +43,9 @@ export default class UserGenerator {
     }
 
     set(event) {
+        if (Math.round(event.layerX) > 900 || Math.round(event.layerY) > 900) {
+            return
+        }
         if (!this.isMousePressed) {
             return
         }
