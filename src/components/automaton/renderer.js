@@ -20,8 +20,8 @@ export default class Renderer {
         const ctx = this.element.getContext('2d')
         ctx.fillStyle = "#49A078"
 
-        let height = this.element.clientHeight / this.field.height()
-        let width = this.element.clientWidth / this.field.width()
+        let height = this.element.clientHeight / this.field.height
+        let width = this.element.clientWidth / this.field.width
         for (let y in this.field.data) {
             for (let x in this.field.data[y]) {
                 if(this.field.data[y][x]) {

@@ -28,6 +28,7 @@ export default {
 
 .content
   background-color: #3c4556
+  background-color: #3c4556
 
 body, html
   height: 100%

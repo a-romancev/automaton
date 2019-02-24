@@ -1,11 +1,12 @@
-import CloneGenerator from "@/components/automaton/generators/clone.js"
+import Field from "@/components/automaton/field.js"
 
-export default class Evolution {
+export default class GOLMutator {
     constructor(field) {
-        this.readField = field
-        this.writeField = null
+        this.field = field
+        this.bufferField = new Field(this.field.width, this.field.height)
         this.timer = null
     }
+    
     start() {
         this.stop()
         this.timer = setInterval(this.process.bind(this), 100)
@@ -17,29 +18,31 @@ export default class Evolution {
     }
 
     process() {
-        this.writeField = new CloneGenerator(this.readField).generate()
+        this.field.iterate( (x, y, value) => {
+            this.bufferField.set(x, y,value)
+        })
+        
+        this.field.iterate((x, y) => {
+            this.processCell(x, y)
+        })
 
-        for (let y = 0; y < this.readField.height(); y++) {
-            for (let x = 0; x < this.readField.width(); x++) {
-                this.processCell(x, y)
-            }
-        }
-
-        this.readField.data = this.writeField.data
+        this.bufferField.iterate( (x, y, value) => {
+            this.field.set(x, y, value)
+        })
     }
 
     processCell(x, y) {
-        const alive = this.readField.get(x, y)
+        const alive = this.field.get(x, y)
         const neighbors = this.liveNeighbors(x, y)
         if (alive && (neighbors === 2 || neighbors === 3)) {
             return
         }
         if (!alive && neighbors === 3) {
-            this.writeField.set(x, y, true)
+            this.bufferField.set(x, y, true)
             return
         }
 
-        this.writeField.set(x, y, false)
+        this.bufferField.set(x, y, false)
     }
 
     liveNeighbors(x, y) {
@@ -49,7 +52,7 @@ export default class Evolution {
                 if (i === 0 && j === 0) {
                     continue
                 }
-                if (this.readField.get(x+i, y+j)) {
+                if (this.field.get(x+i, y+j)) {
                     count++
                 }
             }
