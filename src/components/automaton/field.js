@@ -1,22 +1,20 @@
 export default class Field {
-    constructor() {
+    constructor(width, height) {
         this.data = []
-    }
+        this.width = width
+        this.height = height
 
-    width() {
-        if (!this.height()) {
-            return 0
+        for (let y = 0; y < this.height; y++) {
+            this.data.push([])
+            for (let x = 0; x < this.width; x++) {
+                this.data[y].push(false)
+            }
         }
-        return this.data[0].length
-    }
-
-    height() {
-        return this.data.length
     }
 
     get(x, y) {
-        const h = this.height()
-        const w = this.width()
+        const h = this.height
+        const w = this.width
         if (!h) {
             return false
         }
@@ -25,13 +23,16 @@ export default class Field {
     }
 
     set(x, y, value) {
-        const h = this.height()
-        const w = this.width()
-        if (!h) {
-            return
-        }
-        const p = getPoint(x, y, w, h)
+        const p = getPoint(x, y, this.width, this.height)
         this.data[p.y][p.x] = value
+    }
+
+    iterate(callback) {
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                callback(x, y, this.data[y][x])
+            }
+        }
     }
 }
 
