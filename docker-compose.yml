@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+#  web:
+#    build: web
+#    restart: always
+#    volumes:
+#      - ./web:/var/app
+#    environment:
+#      PG_PORT: 5432
+#      PG_USER: postgres
+#      PG_PASSWORD: 1234
+#      PG_HOST: db
+#    depends_on:
+#      - db
+
+  nginx:
+    image: nginx
+    restart: on-failure
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./.bundle:/etc/nginx/bundle
+#      - /etc/letsencrypt:/etc/letsencrypt/
+    ports:
+      - 9999:80
+
+#  db:
+#    image: postgres
+#    restart: always
+#    volumes:
+#      - ./.data:/var/app/data
+#    environment:
+#      POSTGRES_PASSWORD: 1234
+#      POSTGRES_USER: postgres
+#      PGDATA: /var/app/data
