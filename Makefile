@@ -1,15 +1,13 @@
-IMAGE_NAME = automaton_web
-CONTAINER_NAME = automaton_web
-SCRIPT_FOLDER = `pwd`
 
+.PHONY: bundle
+bundle:
+	cd ./front && make bundle
+	mv ./front/.bundle .bundle
 
-build:
-	docker build -t $(IMAGE_NAME) .
+.PHONY: start
+start:
+	docker-compose up -d
 
-serve:
-	docker run \
-		--rm -it --init \
-		-p 8080:8080 \
-		-v $(SCRIPT_FOLDER)/src:/var/app/src \
-		--name $(CONTAINER_NAME) $(IMAGE_NAME) \
-		npm run serve
+.PHONY: stop
+stop:
+	docker-compose down
