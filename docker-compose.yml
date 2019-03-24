@@ -1,18 +1,17 @@
 version: '3'
 
 services:
-#  web:
-#    build: web
-#    restart: always
-#    volumes:
-#      - ./web:/var/app
-#    environment:
-#      PG_PORT: 5432
-#      PG_USER: postgres
-#      PG_PASSWORD: 1234
-#      PG_HOST: db
+  api:
+    build: api
+    restart: on-failure
+    volumes:
+      - ./api:/var/api
+    environment:
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: 1234
+      PG_HOST: db
 #    depends_on:
-#      - db
 
   nginx:
     image: nginx
