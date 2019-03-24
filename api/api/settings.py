@@ -25,7 +25,7 @@ SECRET_KEY = 'jlio!4p2^rw#f18y+z5kh_&zv6#xe@(kait1(w8m)oc#d6r=15'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
