@@ -3,6 +3,7 @@ node_modules
 .bundle
 *.sqlite3
 *.pyc
+.data
 
 # local env files
 .env.local

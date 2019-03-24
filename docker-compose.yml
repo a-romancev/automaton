@@ -11,7 +11,8 @@ services:
       PG_USER: postgres
       PG_PASSWORD: 1234
       PG_HOST: db
-#    depends_on:
+    depends_on:
+      - db
 
   nginx:
     image: nginx
@@ -23,12 +24,12 @@ services:
     ports:
       - 9999:80
 
-#  db:
-#    image: postgres
-#    restart: always
-#    volumes:
-#      - ./.data:/var/app/data
-#    environment:
-#      POSTGRES_PASSWORD: 1234
-#      POSTGRES_USER: postgres
-#      PGDATA: /var/app/data
+  db:
+    image: postgres
+    restart: on-failure
+    volumes:
+      - ./.data:/var/app/data
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+      PGDATA: /var/app/data
