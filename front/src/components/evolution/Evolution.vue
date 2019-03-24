@@ -29,6 +29,8 @@
       </div>
 
       <md-button @click="start" class="start-button button">Start</md-button>
+      <md-button @click="save" class="start-button button">Save</md-button>
+      <md-button @click="load" class="start-button button">Load</md-button>
 
     </div>
   </div>
@@ -39,6 +41,8 @@
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
+    import axios from "axios"
+    import conf from "@/conf.js"
 
     export default {
         name: 'Evolution',
@@ -79,6 +83,16 @@
             start() {
                 this.gol.start()
             },
+
+            save() {
+                axios.post(conf.API_URL + '/api/field/', this.field)
+            },
+            load() {
+                axios.get(conf.API_URL + '/api/field/')
+                    .then((response) => {
+                        this.field.load(response.data.data)
+                    })
+            }
         }
     }
 </script>

@@ -34,6 +34,17 @@ export default class Field {
             }
         }
     }
+
+    load(data) {
+        this.data = data
+        this.height = data.length
+        if (this.height) {
+            this.width = data[0].length
+        }
+        else {
+            this.width = 0
+        }
+    }
 }
 
 function getPoint(x, y, w, h) {
@@ -48,3 +59,4 @@ function getPoint(x, y, w, h) {
 
     return {x: x, y: y}
 }
+
