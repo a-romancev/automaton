@@ -2,6 +2,7 @@
 .PHONY: bundle
 bundle:
 	cd ./front && make bundle
+	rm -r .bundle
 	mv ./front/.bundle .bundle
 
 .PHONY: start
