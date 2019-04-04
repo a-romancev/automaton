@@ -39,10 +39,12 @@ export default {
 </script>
 
 <style scoped lang="sass">
+  .content
+    height: 100%
 
   .canvas
-    border: #58667c 5px solid
-    width: 900px
-    height: 800px
+
+    width: 100%
+    height: 100%
 
 </style>

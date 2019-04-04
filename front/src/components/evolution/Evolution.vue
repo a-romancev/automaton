@@ -10,16 +10,17 @@
     <Automaton ref="automation"/>
     <div class="control-panel">
 
-      <div class="control-panel-title">Control panel</div>
+      <div class="switch">Control Panel</div>
+      <div class="control-panel__title">Control panel</div>
 
-      <div class="control-section">
+      <div class="control-panel__section">
       <div>Resolution</div>
       <input v-model="resolution" type="range" min="10" max="150" step="5">
       <div>{{ resolution }}</div>
       <md-button @click="init" class="button">Create new field</md-button>
       </div>
 
-      <div class="control-section">
+      <div class="control-panel__section">
       <md-button @click="generate" class="button">Generate random</md-button>
       <!--<div>Generate at random</div>-->
       <!--<input type="checkbox" v-model="checked">-->
@@ -101,31 +102,54 @@
 
   .content
     position: relative
+    width: 100%
+    height: 100%
 
   .hello
     color: #fefeff
     margin: 10px
     text-align: center
     font-size: 20px
+    position: absolute
+    width: 100%
+    opacity: 0.7
+    -moz-user-select: none
+    -webkit-user-select: none
+    user-select: none
 
   .explanation
     font-size: 12px
     color: #a9b2b6
 
   .control-panel
-    height: 500px
-    width: 300px
-    right: 0
+    $wd: 300px
+    height: 550px
+    width: $wd
+    right: -$wd
     top: 0
-    position: absolute
+    position: fixed
     color: whitesmoke
-    margin: 46px
+    margin-top: 50px
     padding: 10px
     border: #58667c 5px solid
     display: block
+    transition: right ease-in 0.5s
+    background-color: #3c4556
+    &:hover
+      right: 0
 
-  .control-panel-title
+  .switch
+    position: relative
+    top: 50%
+    left: -75px
+    width: 100px
+    height: 20px
+    background: #49A078
+    transform: rotate(-90deg)
+
+  .control-panel__title
     font-size: 25px
+    top: 0px
 
   .button
     background-color: #49A078
@@ -134,10 +158,7 @@
     margin: 5px auto
     color: whitesmoke
 
-  .space
-    padding: 10px
-
-  .control-section
+  .control-panel__section
     padding: 10px
     border: #58667c 3px solid
     width: 250px
