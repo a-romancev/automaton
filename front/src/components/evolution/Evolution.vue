@@ -1,6 +1,7 @@
 <template>
 
   <div class="content">
+    <div class="grid"></div>
     <div class="hello">
       Evolution
       <div class="explanation">
@@ -70,7 +71,7 @@
                 if (this.gol) {
                     this.gol.stop()
                 }
-                this.field = this.$refs.automation.init(parseInt(this.$data.resolution), parseInt(this.$data.resolution))
+                this.field = this.$refs.automation.init(parseInt(this.$data.resolution), parseInt(this.$data.resolution / 1.77))
                 this.draw = new DrawMutator(this.field, this.$refs.automation)
                 this.gol = new GOLMutator(this.field)
                 this.draw.start()
@@ -166,7 +167,5 @@
 
   .start-button
     width: 250px
-
-
 
 </style>

@@ -39,8 +39,6 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  .content
-    height: 100%
 
   .canvas
 
