@@ -100,7 +100,7 @@
 
     function calcHeight(width) {
         const cell = window.innerWidth / width
-        return (window.innerHeight / cell)
+        return parseInt(window.innerHeight / cell)
     }
 </script>
 
