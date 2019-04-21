@@ -71,7 +71,7 @@
                 if (this.gol) {
                     this.gol.stop()
                 }
-                this.field = this.$refs.automation.init(parseInt(this.$data.resolution), parseInt(this.$data.resolution / 1.77))
+                this.field = this.$refs.automation.init(parseInt(this.$data.resolution), calcHeight(parseInt(this.$data.resolution)))
                 this.draw = new DrawMutator(this.field, this.$refs.automation)
                 this.gol = new GOLMutator(this.field)
                 this.draw.start()
@@ -96,6 +96,11 @@
                     })
             }
         }
+    }
+
+    function calcHeight(width) {
+        const cell = window.innerWidth / width
+        return (window.innerHeight / cell)
     }
 </script>
 
@@ -134,10 +139,11 @@
     padding: 10px
     border: #58667c 5px solid
     display: block
-    transition: right ease-in 0.5s
+    transition: right ease-out 0.6s
     background-color: #3c4556
     &:hover
       right: 0
+      transition: right ease-out 0.35s
 
   .switch
     position: relative
