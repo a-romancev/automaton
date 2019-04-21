@@ -65,16 +65,8 @@
 
         methods: {
             init() {
-                if (this.draw) {
-                    this.draw.stop()
-                }
-                if (this.gol) {
-                    this.gol.stop()
-                }
                 this.field = this.$refs.automation.init(parseInt(this.$data.resolution), calcHeight(parseInt(this.$data.resolution)))
-                this.draw = new DrawMutator(this.field, this.$refs.automation)
-                this.gol = new GOLMutator(this.field)
-                this.draw.start()
+                this.updateMutators()
             },
 
             generate() {
@@ -89,11 +81,25 @@
             save() {
                 axios.post(conf.API_URL + '/api/field/', this.field)
             },
+
             load() {
                 axios.get(conf.API_URL + '/api/field/')
                     .then((response) => {
                         this.field.load(response.data.data)
+                        this.updateMutators()
                     })
+            },
+
+            updateMutators() {
+                if (this.draw) {
+                    this.draw.stop()
+                }
+                if (this.gol) {
+                    this.gol.stop()
+                }
+                this.draw = new DrawMutator(this.field, this.$refs.automation)
+                this.gol = new GOLMutator(this.field)
+                this.draw.start()
             }
         }
     }
