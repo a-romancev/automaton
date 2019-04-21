@@ -2,10 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import VueRouter from 'vue-router'
+import routes from './routes';
 
+Vue.config.productionTip = false;
+
+Vue.use(VueRouter)
 Vue.use(VueMaterial)
 Vue.config.productionTip = false
 
+const router = new VueRouter({mode: 'history', routes})
+
 new Vue({
-  render: function (h) { return h(App) },
+  router,
+  render: h => h(App)
 }).$mount('#app')

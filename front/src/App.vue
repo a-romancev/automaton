@@ -1,6 +1,9 @@
 <template>
   <div id="app" class="content">
-    <Evolution/>
+    <nav>
+      <router-link to='/login'>Login</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
