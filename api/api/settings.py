@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'automaton',
-
+    'secure',
 ]
 
 if DEBUG:
@@ -140,5 +140,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-
+    CORS_ORIGIN_WHITELIST = (
+        'shtolets.com',
+        'localhost:8080'
+    )
+    CORS_ALLOW_CREDENTIALS = True

@@ -65,12 +65,12 @@
 
         methods: {
             init() {
-                this.field = this.$refs.automation.init(parseInt(this.$data.resolution), calcHeight(parseInt(this.$data.resolution)))
+                this.field = this.$refs.automation.init(parseInt(this.resolution), calcHeight(parseInt(this.resolution)))
                 this.updateMutators()
             },
 
             generate() {
-                let generator = new RandomGenerator(this.field, this.$data.density)
+                let generator = new RandomGenerator(this.field, this.density)
                 generator.generate()
             },
 
