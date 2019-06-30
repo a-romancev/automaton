@@ -33,6 +33,11 @@
       <md-button @click="start" class="start-button button">Start</md-button>
       <md-button @click="save" class="start-button button">Save</md-button>
       <md-button @click="load" class="start-button button">Load</md-button>
+      name:
+      <input type="text" v-model="name">
+      <nav>
+        <router-link class="link" to='/field_list'>My Fields</router-link>
+      </nav>
 
     </div>
   </div>
@@ -54,6 +59,7 @@
                 resolution: 10,
                 density: 0.01,
                 checked: false,
+                name: "no name"
             }
         },
 
@@ -65,7 +71,10 @@
 
         methods: {
             init() {
-                this.field = this.$refs.automation.init(parseInt(this.resolution), calcHeight(parseInt(this.resolution)))
+                this.field = this.$refs.automation.init(
+                    parseInt(this.resolution),
+                    calcHeight(parseInt(this.resolution))
+                )
                 this.updateMutators()
             },
 
@@ -79,6 +88,7 @@
             },
 
             save() {
+                this.field.name = this.name
                 axios.post(conf.API_URL + '/api/field/', this.field)
             },
 

@@ -1,8 +1,9 @@
 export default class Field {
-    constructor(width, height) {
+    constructor(width, height, name) {
         this.data = []
         this.width = width
         this.height = height
+        this.name = name
 
         for (let y = 0; y < this.height; y++) {
             this.data.push([])

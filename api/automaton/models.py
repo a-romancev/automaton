@@ -6,3 +6,4 @@ from django.contrib.auth.models import User
 class Field(models.Model):
     data = JSONField()
     user = models.ForeignKey(User, related_name='fields', on_delete=models.CASCADE)
+    name = models.TextField()

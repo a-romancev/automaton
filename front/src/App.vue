@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="content">
     <nav>
-      <router-link to='/login'>Login</router-link>
+      <router-link class="link" to='/login'>Login</router-link>
     </nav>
     <router-view />
   </div>
@@ -37,4 +37,8 @@ body, html
   overflow: hidden
   margin: 0
 
+.link
+  color: whitesmoke
+  display: block
+  background-color: #3c4556
 </style>

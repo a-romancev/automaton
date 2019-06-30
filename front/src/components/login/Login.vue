@@ -30,6 +30,10 @@
 
                         alert(resp.error)
                     })
+                    .catch((resp) => {
+                        console.log(resp)
+                        alert(resp)
+                    })
             }
         }
     }
