@@ -1,8 +1,9 @@
 <template>
   <div id="app" class="content">
-    <nav>
-      <router-link class="link" to='/login'>Login</router-link>
-    </nav>
+    <header class="app_header">
+      <router-link style="text-decoration:none" class="header_item header_item_right" to='/login'>Login</router-link>
+      <router-link style="text-decoration:none" class="header_item header_item_left" to='/'>Home</router-link>
+    </header>
     <router-view />
   </div>
 </template>
@@ -37,8 +38,38 @@ body, html
   overflow: hidden
   margin: 0
 
+.app_header
+  width: 100%
+  height: 25px
+  display: inline-block
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 10
+
+.header_item
+  font-size: 15px
+  text-decoration: none
+  display: inline-block
+  color: whitesmoke
+  background-color: #49A078
+  width: 100px
+  height: 100%
+  border: #58667c 3px solid
+  &:hover
+    background-color: #50b385
+    transition: background-color 0.5s
+    text-decoration: none
+
+.header_item_left
+  float: left
+  margin-left: 10px
+
+.header_item_right
+  float: right
+  margin-right: 10px
+
 .link
   color: whitesmoke
-  display: block
-  background-color: #3c4556
+
 </style>
