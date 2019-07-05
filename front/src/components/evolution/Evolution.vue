@@ -145,14 +145,14 @@
 
   .control-panel
     $wd: 300px
-    height: 550px
+    height: 560px
     width: $wd
     right: -$wd
     top: 0
     position: fixed
     color: whitesmoke
     margin-top: 50px
-    padding: 10px
+    padding: 0
     border: #58667c 5px solid
     display: block
     transition: right ease-out 0.6s
@@ -164,11 +164,12 @@
   .switch
     position: relative
     top: 50%
-    left: -75px
+    left: -65px
     width: 100px
-    height: 20px
+    height: 25px
     background: #49A078
     transform: rotate(-90deg)
+    border: #58667c 3px solid
 
   .control-panel__title
     font-size: 25px
