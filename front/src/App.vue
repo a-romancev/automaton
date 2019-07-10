@@ -45,7 +45,7 @@ body, html
   position: absolute
   top: 0
   left: 0
-  z-index: 10
+  z-index: 5
 
 .header_item
   font-size: 15px

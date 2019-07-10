@@ -40,9 +40,9 @@ export default {
 
 <style scoped lang="sass">
 
-  .canvas
-
-    width: 100%
-    height: 100%
+.canvas
+  width: 100%
+  height: 100%
+  z-index: 10
 
 </style>

@@ -31,9 +31,8 @@
       </div>
 
       <md-button @click="start" class="start-button button">Start</md-button>
-      <md-button @click="save" class="start-button button">Save</md-button>
-      <md-button @click="load" class="start-button button">Load</md-button>
-      name:
+      <md-button @click="save" class="start-button button">Save field</md-button>
+      <div> Field name:</div>
       <input type="text" v-model="name">
       <nav>
         <router-link class="link" to='/field_list'>My Fields</router-link>
