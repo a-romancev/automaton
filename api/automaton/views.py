@@ -5,7 +5,7 @@ from django.views import generic
 from automaton.models import Field
 from secure.decorators import authorized
 
-class FieldView(generic.View):
+class CreateFieldView(generic.View):
     @authorized
     def post(self, request):
         field = json.loads(request.body)
@@ -13,10 +13,14 @@ class FieldView(generic.View):
 
         return HttpResponse()
 
+class FieldView(generic.View):
     @authorized
-    def get(self, request):
-        obj = Field.objects.filter(user=request.user).order_by('id').last()
-        field = {'data': obj.data}
+    def get(self, request, obj_id):
+        try:
+            obj = Field.objects.get(user=request.user, id=obj_id)
+            field = {'data': obj.data}
+        except Field.DoesNotExist:
+            return HttpResponse(json.dumps({'error':'Field does not exist'}))
 
         return HttpResponse(json.dumps(field))
 

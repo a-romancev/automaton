@@ -2,16 +2,16 @@
   <div class="content">
     <div class="register_block block">
       <div class="title">Register</div>
-      Login <input v-model="login" type="text"/>
-      Password <input v-model="password" type="text"/>
+      Login <input v-model="login_reg" type="text"/>
+      Password <input v-model="password_reg" type="text"/>
       Password again <input v-model="password_check" type="text"/>
       <md-button @click="register">Register</md-button>
     </div>
     <div class="login_block block">
       <div class="title">Login</div>
-      Login<input v-model="login" type="text"/>
-      Password<input v-model="password" type="text"/>
-      <md-button @click="register">Login</md-button>
+      Login<input v-model="login_in" type="text"/>
+      Password<input v-model="password_in" type="text"/>
+      <md-button @click="login">Login</md-button>
     </div>
   </div>
 </template>
@@ -22,30 +22,49 @@
     export default {
         data() {
             return {
-                login: "",
-                password: "",
+                login_reg: "",
+                login_in: "",
+                password_reg: "",
+                password_in: "",
                 password_check: ""
             }
         },
         methods:{
             register() {
-                if (this.password === this.password_check) {
-                    axios.post(conf.API_URL + '/api/register/', {login: this.login, password: this.password})
-                        .then((resp) => {
-                            if (resp.data.error) {
-                                alert(resp.data.error)
-                                return
-                            }
-
-                            alert(resp.error)
-                        })
-                        .catch((resp) => {
-                            console.log(resp)
-                            alert(resp)
-                        })
-                } else {
+                if (this.password_reg !== this.password_check) {
                     alert("Passwords do not match!")
+                    return
                 }
+
+                axios.post(conf.API_URL + '/api/register/', {login: this.login_reg, password: this.password_reg})
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                            return
+                        }
+                        alert("register successful")
+
+                    })
+                    .catch((resp) => {
+                        console.log(resp)
+                        alert(resp)
+                    })
+            },
+
+            login() {
+                axios.post(conf.API_URL + '/api/login/', {login: this.login_in, password: this.password_in})
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                            return
+                        }
+                        alert("login successful")
+
+                    })
+                    .catch((resp) => {
+                        console.log(resp)
+                        alert(resp)
+                    })
             }
         }
     }

@@ -1,16 +1,16 @@
 <template>
   <div id="app" class="content">
     <header class="app_header">
-      <router-link style="text-decoration:none" class="header_item header_item_right" to='/login'>Login</router-link>
-      <router-link style="text-decoration:none" class="header_item header_item_left" to='/'>Home</router-link>
+      <router-link class="header_item header_item_right" to='/login'>Login</router-link>
+      <router-link class="header_item header_item_left" to='/'>Home</router-link>
     </header>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Automaton from './components/automaton/Automaton.vue'
-import Evolution from "./components/evolution/Evolution";
+import Evolution from "./components/automaton/Evolution";
 
 export default {
   name: 'app',
@@ -47,6 +47,7 @@ body, html
   left: 0
   z-index: 5
 
+
 .header_item
   font-size: 15px
   text-decoration: none
@@ -71,5 +72,8 @@ body, html
 
 .link
   color: whitesmoke
+
+a:link:not(.fake):not(.fake)
+  text-decoration: none
 
 </style>

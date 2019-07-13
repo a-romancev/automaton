@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import Automaton from "../automaton/Automaton"
+    import Automaton from "./Automaton"
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
@@ -70,11 +70,17 @@
 
         methods: {
             init() {
+
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
                     calcHeight(parseInt(this.resolution))
                 )
-                this.updateMutators()
+                if (this.$route.params.id) {
+                    this.load(this.$route.params.id)
+                } else {
+                    this.updateMutators()
+                }
+
             },
 
             generate() {
@@ -89,11 +95,18 @@
             save() {
                 this.field.name = this.name
                 axios.post(conf.API_URL + '/api/field/', this.field)
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
             },
 
-            load() {
-                axios.get(conf.API_URL + '/api/field/')
+            load(id) {
+                axios.get(conf.API_URL + '/api/field/' + id)
                     .then((response) => {
+                        if (response.data.error) {
+                            alert(response.data.error)
+                            return
+                        }
                         this.field.load(response.data.data)
                         this.updateMutators()
                     })
@@ -156,6 +169,7 @@
     display: block
     transition: right ease-out 0.6s
     background-color: #3c4556
+    transition-delay: 1.5s
     &:hover
       right: 0
       transition: right ease-out 0.35s

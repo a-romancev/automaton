@@ -29,6 +29,10 @@
 
             axios.get(conf.API_URL + '/api/field_list/')
                 .then((resp) => { this.fields = resp.data } )
+                .catch((resp) =>{
+                    alert(resp)
+                })
+
                 //.then((resp) => { console.log(resp.data) } )
 
         },

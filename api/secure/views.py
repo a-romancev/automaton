@@ -32,7 +32,6 @@ class RegisterView(generic.View):
 class LoginView(generic.View):
     def post(self, request):
         user_data = json.loads(request.body)
-
         user = auth.authenticate(request, username=user_data['login'], password=user_data['password'])
         if not user.is_active:
             return HttpResponse(json.dumps({'error': 'login error'}))
