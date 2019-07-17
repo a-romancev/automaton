@@ -5,7 +5,7 @@
       Mutator List
       <ul>
         <li v-for="mutator in mutators">
-          {{ mutator.name }}
+          <router-link :to="{path: '/mutator/' + mutator.id}" class="link">{{ mutator.name }}</router-link>
         </li>
       </ul>
     </div>
@@ -33,16 +33,21 @@
                     alert(resp)
                 })
 
+
         },
         methods: {
             create() {
-                  axios.post(conf.API_URL + '/api/mutator/')
-                      .then((resp) => {
-                          this.$router.push('/mutator/' + resp.data.id)
-                      })
-                      .catch((resp) =>{
-                          alert(resp)
-                      })
+                axios.post(conf.API_URL + '/api/mutator/')
+                    .then((resp) => {
+                        this.$router.push('/mutator/' + resp.data.id)
+                    })
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
+            },
+
+            gotorule() {
+                 this.$router.push('/mutator/' + this.mutators[0].id)
             }
 
         }

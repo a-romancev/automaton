@@ -4,7 +4,7 @@
       Listolist
       <ul>
         <li v-for="field in fields">
-          {{ field.name }}
+          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}</router-link>
         </li>
       </ul>
     </div>
@@ -16,13 +16,13 @@
     import conf from "@/conf.js"
 
     export default {
+
         data() {
             return {
                 fields: [
                 ]
             }
         },
-
 
         name: "FieldList",
         mounted() {
@@ -35,10 +35,8 @@
 
                 //.then((resp) => { console.log(resp.data) } )
 
-        },
-        methods: {
-
         }
+
     }
 </script>
 
