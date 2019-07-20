@@ -1,0 +1,25 @@
+{
+  "company 1"  : {
+    "FirstName"  : "Jhon",
+    "LastName"   : "Smith",
+    "Id"         : 12311512,
+    "Designation" : "C++ Programmer",
+    "PC spec": {
+      "GRM" : "1050ti",
+      "CPU" : "intel blabla",
+      "score" : 9
+    }
+  },
+
+  "company 2" : {
+    "FirstName"  : "Jack",
+    "LastName"   : "Blabla",
+    "Id"         : 123234512,
+    "Designation" : "Python Programmer",
+    "PC spec": {
+      "GRM" : "550ti",
+      "CPU" : "intel biba",
+      "score" : 3
+    }
+  }
+}
