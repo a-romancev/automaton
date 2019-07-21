@@ -1,6 +1,7 @@
 <template>
   <div class="rule_content">
     <condition ref="cond"/>
+    <br>
     <action ref="action"/>
   </div>
 </template>
@@ -42,5 +43,7 @@
 </script>
 
 <style scoped lang="sass">
-
+.rule_content
+  border: 2px darkgray solid
+  padding: 10px
 </style>

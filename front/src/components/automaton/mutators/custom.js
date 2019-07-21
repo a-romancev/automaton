@@ -1,4 +1,5 @@
 import Field from "@/components/automaton/field.js"
+import Const from "@/components/automaton/mutators/const.js"
 
 export default class CustomMutator {
     constructor(field, rules) {
@@ -19,28 +20,39 @@ export default class CustomMutator {
     }
 
     process() {
-        this.field.iterate( (x, y, value) => {
-            this.bufferField.set(x, y,value)
+        this.field.iterate((x, y, value) => {
+            this.bufferField.set(x, y, value)
         })
 
         this.field.iterate((x, y) => {
             this.processCell(x, y)
         })
 
-        this.bufferField.iterate( (x, y, value) => {
+        this.bufferField.iterate((x, y, value) => {
             this.field.set(x, y, value)
         })
     }
 
     processCell(x, y) {
-        const liveNeighbors = this.liveNeighbors(x,y)
+        const liveNeighbors = this.liveNeighbors(x, y)
+        const alive = this.field.get(x,y)
         for (let rule of this.rules) {
-            if (liveNeighbors === rule.condition.aliveCount) {
-                this.bufferField.set(x,y, rule.action.populate)
-                return
+            switch (rule.condition.type) {
+                case Const.condType.living:
+                    if (liveNeighbors === rule.condition.aliveCount) {
+                        this.bufferField.set(x, y, rule.action.populate)
+                        return
+                    }
+                    break
+                case Const.condType.state:
+                    if (alive === rule.condition.populated) {
+                        this.bufferField.set(x, y, rule.action.populate)
+                    }
+                    break
             }
         }
     }
+
 
     liveNeighbors(x, y) {
         let count = 0

@@ -9,7 +9,10 @@ class CreateFieldView(generic.View):
     @authorized
     def post(self, request):
         field = json.loads(request.body)
-        Field.objects.create(data=field['data'], user=request.user, name=field['name'])
+        if field['mutator_id'] is None:
+            return HttpResponse(json.dumps({'error':'You did not select a mutator'}))
+
+        Field.objects.create(data=field['data'], user=request.user, name=field['name'], mutator_id=field['mutator_id'])
 
         return HttpResponse()
 
@@ -18,7 +21,7 @@ class FieldView(generic.View):
     def get(self, request, obj_id):
         try:
             obj = Field.objects.get(user=request.user, id=obj_id)
-            field = {'data': obj.data}
+            field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator':{'rules':obj.mutator.rules }}
         except Field.DoesNotExist:
             return HttpResponse(json.dumps({'error':'Field does not exist'}))
 
