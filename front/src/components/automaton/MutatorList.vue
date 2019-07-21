@@ -44,10 +44,6 @@
                     .catch((resp) =>{
                         alert(resp)
                     })
-            },
-
-            gotorule() {
-                 this.$router.push('/mutator/' + this.mutators[0].id)
             }
 
         }
