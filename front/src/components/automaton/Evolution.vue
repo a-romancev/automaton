@@ -53,6 +53,7 @@
     import Automaton from "./Automaton"
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
+    import CustomMutator from "@/components/automaton/mutators/custom.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
     import axios from "axios"
     import conf from "@/conf.js"
@@ -103,7 +104,7 @@
             },
 
             start() {
-                this.gol.start()
+                this.mutator.start()
             },
 
             save() {
@@ -131,9 +132,9 @@
                             return
                         }
                         this.mutator_id = response.data.mutator_id
-                        console.log(response.data)
                         this.name = response.data.name
                         this.field.load(response.data.data)
+                        this.rules = response.data.mutator.rules
                         this.updateMutators()
                     })
             },
@@ -142,11 +143,11 @@
                 if (this.draw) {
                     this.draw.stop()
                 }
-                if (this.gol) {
-                    this.gol.stop()
+                if (this.mutator) {
+                    this.mutator.stop()
                 }
                 this.draw = new DrawMutator(this.field, this.$refs.automation)
-                this.gol = new GOLMutator(this.field)
+                this.mutator = new CustomMutator(this.field, this.rules)
                 this.draw.start()
             }
         }
