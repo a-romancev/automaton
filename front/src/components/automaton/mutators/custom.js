@@ -39,7 +39,7 @@ export default class CustomMutator {
         for (let rule of this.rules) {
             switch (rule.condition.type) {
                 case Const.condType.living:
-                    if (liveNeighbors === rule.condition.aliveCount) {
+                    if (checkCondition(rule.condition.operator,liveNeighbors,rule.condition.aliveCount)) {
                         this.bufferField.set(x, y, rule.action.populate)
                         return
                     }
@@ -67,5 +67,22 @@ export default class CustomMutator {
             }
         }
         return count
+    }
+}
+
+function checkCondition(operator, left,right) {
+    switch (operator) {
+        case Const.operType.eq:
+            return left === right
+        case Const.operType.neq:
+            return left !== right
+        case Const.operType.gt:
+            return left > right
+        case Const.operType.lt:
+            return left < right
+        case Const.operType.lte:
+            return left <= right
+        case Const.operType.gte:
+            return left >= right
     }
 }

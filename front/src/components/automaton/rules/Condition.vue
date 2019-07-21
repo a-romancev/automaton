@@ -6,12 +6,21 @@
       <option :value="typeConst.state">Current state</option>
     </select>
     <div v-if="this.type === typeConst.living" >
-      Alive = <input type="number" v-model="living.aliveCount">
+      Alive
+      <select v-model="living.operator">
+        <option selected :value="operConst.eq"> = </option>
+        <option :value="operConst.neq"> != </option>
+        <option :value="operConst.gt"> > </option>
+        <option :value="operConst.lt"> < </option>
+        <option :value="operConst.gte"> >= </option>
+        <option :value="operConst.lte"> <= </option>
+      </select>
+      <input type="number" v-model="living.aliveCount">
     </div>
     <div v-if="this.type === typeConst.state" >
       <select v-model="state.populated">
-        <option selected value="true">Populated</option>
-        <option value="false">Unpopulated</option>
+        <option selected :value='"true"'>Populated</option>
+        <option :value='"false"'>Unpopulated</option>
       </select>
     </div>
 
@@ -27,19 +36,24 @@
         data() {
             return {
                 type: Const.condType.living,
-                living: {aliveCount: 1},
+                living: {aliveCount: 1, operator: '1'},
                 state: {populated: "true"}
             }
         },
         computed:{
             typeConst() {
                 return Const.condType
+            },
+            operConst(){
+                return Const.operType
             }
+
         },
         props: {
             initial: Object
         },
         mounted() {
+            console.log(this.state.populated)
             this.load(this.initial)
         },
         methods: {
@@ -48,7 +62,8 @@
                 switch (this.type) {
                     case Const.condType.living:
                         data = {
-                            aliveCount: parseInt(this.living.aliveCount)
+                            aliveCount: parseInt(this.living.aliveCount),
+                            operator: parseInt(this.living.operator)
                         }
                         break
                     case Const.condType.state:
@@ -67,6 +82,7 @@
                 switch (data.type) {
                     case Const.condType.living:
                         this.living.aliveCount = data.aliveCount
+                        this.living.operator = data.operator
                         break
                     case Const.condType.state:
                         this.state.populated = data.populated ? "true" : "false"
