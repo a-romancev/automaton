@@ -37,6 +37,11 @@
       <nav>
         <router-link class="link" to='/field_list'>My Fields</router-link>
         <div></div>
+        <select v-model="mutator_id">
+          <option :value="mutator.id" v-for="mutator in mutators">
+            {{mutator.name}}
+          </option>
+        </select>
         <router-link class="link" to='/mutator_list'>My Rules</router-link>
       </nav>
 
@@ -60,7 +65,9 @@
                 resolution: 10,
                 density: 0.01,
                 checked: false,
-                name: "no name"
+                name: "no name",
+                mutators: [],
+                mutator_id: null
             }
         },
 
@@ -72,6 +79,11 @@
 
         methods: {
             init() {
+                axios.get(conf.API_URL + '/api/mutator_list/')
+                    .then((resp) => { this.mutators = resp.data } )
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
 
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
@@ -95,8 +107,17 @@
             },
 
             save() {
-                this.field.name = this.name
-                axios.post(conf.API_URL + '/api/field/', this.field)
+                let data = {
+                    name: this.name,
+                    data: this.field.data,
+                    mutator_id : this.mutator_id
+                }
+                axios.post(conf.API_URL + '/api/field/', data)
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                        }
+                    })
                     .catch((resp) =>{
                         alert(resp)
                     })
@@ -109,6 +130,9 @@
                             alert(response.data.error)
                             return
                         }
+                        this.mutator_id = response.data.mutator_id
+                        console.log(response.data)
+                        this.name = response.data.name
                         this.field.load(response.data.data)
                         this.updateMutators()
                     })
