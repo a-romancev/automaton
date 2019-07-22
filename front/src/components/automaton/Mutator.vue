@@ -4,8 +4,8 @@
       <input type="text" v-model="name">
       <md-button @click="save">Save</md-button>
     </div>
+    <md-button @click="createNewRule">Create new rule</md-button>
     <div class="block">
-      <md-button @click="createNewRule" >Create new rule</md-button>
       <rule ref="rule" :initial="rule" v-for="rule in rules">
       </rule>
     </div>
@@ -16,7 +16,6 @@
     import axios from "axios"
     import conf from "@/conf.js"
     import Rule from "./rules/Rule";
-
     export default {
         name: "Mutator",
         components: {Rule},
@@ -26,7 +25,6 @@
                 rules: []
             }
         },
-
         mounted() {
             axios.get(conf.API_URL + '/api/mutator/' + this.$route.params.id)
                 .then((resp) => {
@@ -36,7 +34,6 @@
                 .catch((resp) => {
                     alert(resp)
                 })
-
         },
         methods: {
             save() {
@@ -44,7 +41,6 @@
                     name: this.name,
                     rules: []
                 }
-
                 for (let rule of this.$refs.rule) {
                     data.rules.push(rule.save())
                 }
@@ -64,28 +60,20 @@
 </script>
 
 <style scoped lang="sass">
-
   .content
-    display: inline-flex
-    margin-top: 200px
+    display: inline-block
     background-color: #49A078
-    width: 1000px
+    width: 65%
     text-align: center
     color: whitesmoke
-
-  .block
-    width: 70%
-    height: 500px
-    text-align: center
-    display: flex
-    flex-direction: column
-    align-items: center
-    border: #58667c 5px solid
-    justify-content: center
-    overflow-y: auto
-
-  .save_block
-    width: 30%
-
-
+    height: 900px
+    overflow: auto
+    .block
+      text-align: center
+      display: flex
+      flex-direction: column
+      align-items: center
+      border: #58667c 5px solid
+      justify-content: center
+      overflow: auto
 </style>
