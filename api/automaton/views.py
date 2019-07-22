@@ -18,6 +18,18 @@ class CreateFieldView(generic.View):
 
 class FieldView(generic.View):
     @authorized
+    def post(self, request, obj_id=None):
+        field = json.loads(request.body)
+        if field['mutator_id'] is None:
+            return HttpResponse(json.dumps({'error':'You did not select a mutator'}))
+        if not obj_id:
+            obj = Field.objects.create(user=request.user, name=['no name'],data=field['data'],mutator_id=field['mutator_id'])
+            return HttpResponse(json.dumps({'id':obj.id}))
+
+        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'],data=field['data'],mutator_id=field['mutator_id'])
+        return HttpResponse(json.dumps({'id':obj_id}))
+
+    @authorized
     def get(self, request, obj_id):
         try:
             obj = Field.objects.get(user=request.user, id=obj_id)
