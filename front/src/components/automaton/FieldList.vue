@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div>
-      Listolist
+      <div class="title">Field List</div>
       <ul>
         <li v-for="field in fields">
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}</router-link>
@@ -40,6 +40,14 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+
+.content
+  color:  whitesmoke
+  display: inline-flex
+
+.title
+  padding: 20px
+  font-size: 25px
 
 </style>

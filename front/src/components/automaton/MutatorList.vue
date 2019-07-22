@@ -1,8 +1,8 @@
 <template>
   <div class="content">
     <div>
-      <md-button @click="create" class="start-button button">Add mutator</md-button>
-      Mutator List
+      <div class="title">Mutator List</div>
+      <md-button @click="create" class="button">Add mutator</md-button>
       <ul>
         <li v-for="mutator in mutators">
           <router-link :to="{path: '/mutator/' + mutator.id}" class="link">{{ mutator.name }}</router-link>
@@ -50,6 +50,15 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+.content
+  color:  whitesmoke
+  display: inline-flex
 
+.button
+  color: whitesmoke
+
+.title
+  padding: 20px
+  font-size: 25px
 </style>

@@ -4,7 +4,6 @@
 
 <script>
 import Renderer from "@/components/automaton/renderer.js"
-import Gol from "@/components/automaton/mutators/gol.js"
 import Field from "@/components/automaton/field.js"
 
 export default {
@@ -12,7 +11,6 @@ export default {
 
     beforeCreate() {
         this.field = null
-        this.evo = null
         this.renderer = null
     },
 
@@ -25,15 +23,8 @@ export default {
             this.renderer = new Renderer(this.$refs.canvas, this.field)
             this.renderer.start()
             return this.field
-        },
+        }
 
-        start() {
-            if (this.evo) {
-                this.evo.stop()
-            }
-            this.evo = new Gol(this.field)
-            this.evo.start()
-        },
     }
 }
 </script>

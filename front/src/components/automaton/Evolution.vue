@@ -37,6 +37,11 @@
       <nav>
         <router-link class="link" to='/field_list'>My Fields</router-link>
         <div></div>
+        <select v-model="mutator_id">
+          <option :value="mutator.id" v-for="mutator in mutators">
+            {{mutator.name}}
+          </option>
+        </select>
         <router-link class="link" to='/mutator_list'>My Rules</router-link>
       </nav>
 
@@ -48,6 +53,7 @@
     import Automaton from "./Automaton"
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
+    import CustomMutator from "@/components/automaton/mutators/custom.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
     import axios from "axios"
     import conf from "@/conf.js"
@@ -60,7 +66,9 @@
                 resolution: 10,
                 density: 0.01,
                 checked: false,
-                name: "no name"
+                name: "no name",
+                mutators: [],
+                mutator_id: null
             }
         },
 
@@ -72,6 +80,11 @@
 
         methods: {
             init() {
+                axios.get(conf.API_URL + '/api/mutator_list/')
+                    .then((resp) => { this.mutators = resp.data } )
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
 
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
@@ -91,12 +104,21 @@
             },
 
             start() {
-                this.gol.start()
+                this.mutator.start()
             },
 
             save() {
-                this.field.name = this.name
-                axios.post(conf.API_URL + '/api/field/', this.field)
+                let data = {
+                    name: this.name,
+                    data: this.field.data,
+                    mutator_id : this.mutator_id
+                }
+                axios.post(conf.API_URL + '/api/field/', data)
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                        }
+                    })
                     .catch((resp) =>{
                         alert(resp)
                     })
@@ -109,7 +131,10 @@
                             alert(response.data.error)
                             return
                         }
+                        this.mutator_id = response.data.mutator_id
+                        this.name = response.data.name
                         this.field.load(response.data.data)
+                        this.rules = response.data.mutator.rules
                         this.updateMutators()
                     })
             },
@@ -118,11 +143,11 @@
                 if (this.draw) {
                     this.draw.stop()
                 }
-                if (this.gol) {
-                    this.gol.stop()
+                if (this.mutator) {
+                    this.mutator.stop()
                 }
                 this.draw = new DrawMutator(this.field, this.$refs.automation)
-                this.gol = new GOLMutator(this.field)
+                this.mutator = new CustomMutator(this.field, this.rules)
                 this.draw.start()
             }
         }
