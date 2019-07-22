@@ -13,34 +13,28 @@
       <div class="control-panel__title">Control panel</div>
 
       <div class="control-panel__section">
-        <div>Resolution</div>
-        <input v-model="resolution" type="range" min="10" max="150" step="5">
-        <div>{{ resolution }}</div>
-        <md-button @click="init" class="button">Create new field</md-button>
+        <md-button @click="init" class="button">Reset field</md-button>
       </div>
-
       <div class="control-panel__section">
-        <md-button @click="generate" class="button">Generate random</md-button>
-        <div>Density</div>
-        <input v-model="density" type="range" min="0.01" max="1" step="0.01">
-        <div>{{ density }}</div>
+        <md-button @click="start" class="button">Start</md-button>
+        <md-button @click="save" class=" button">Save field</md-button>
+        <div> Field name:</div>
+        <input type="text" v-model="name">
       </div>
-
-      <md-button @click="start" class="start-button button">Start</md-button>
-      <md-button @click="save" class="start-button button">Save field</md-button>
-      <div> Field name:</div>
-      <input type="text" v-model="name">
-      <nav>
-        <router-link class="link" to='/field_list'>My Fields</router-link>
-        <div></div>
-        <select v-model="mutator_id">
-          <option :value="mutator.id" v-for="mutator in mutators">
-            {{mutator.name}}
-          </option>
-        </select>
-        <router-link class="link" to='/mutator_list'>My Rules</router-link>
-      </nav>
-
+      <div class="control-panel__section">
+        <nav>
+          <router-link class="link" to='/field_list'>My Fields</router-link>
+          <br>
+          Mutator
+          <select v-model="mutator_id">
+            <option :value="mutator.id" v-for="mutator in mutators">
+              {{mutator.name}}
+            </option>
+          </select>
+          <br>
+          <router-link class="link" to='/mutator_list'>My Rules</router-link>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -86,11 +80,12 @@
                     parseInt(this.resolution),
                     calcHeight(parseInt(this.resolution))
                 )
-                if (this.$route.params.id) {
-                    this.load(this.$route.params.id)
-                } else {
-                    this.updateMutators()
-                }
+                this.load(this.$route.params.id)
+                // if (this.$route.params.id) {
+                //     this.load(this.$route.params.id)
+                // } else {
+                //     this.updateMutators()
+                // }
 
             },
 

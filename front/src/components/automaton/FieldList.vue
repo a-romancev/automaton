@@ -2,6 +2,8 @@
   <div class="content">
     <div>
       <div class="title">Field List</div>
+      <md-button @click="create" class="button">Create field</md-button>
+      <router-link to="/"class="button"> Create new field</router-link>
       <ul>
         <li v-for="field in fields">
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}</router-link>
@@ -35,6 +37,17 @@
 
                 //.then((resp) => { console.log(resp.data) } )
 
+        },
+        methods: {
+            create() {
+                axios.post(conf.API_URL + '/api/field/')
+                    .then((resp) => {
+                        this.$router.push('/field/' + resp.data.id)
+                    })
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
+            }
         }
 
     }
@@ -49,5 +62,9 @@
 .title
   padding: 20px
   font-size: 25px
+
+.button
+  color: whitesmoke
+
 
 </style>
