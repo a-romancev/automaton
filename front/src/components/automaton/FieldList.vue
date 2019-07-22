@@ -3,6 +3,7 @@
     <div>
       <div class="title">Field List</div>
       <md-button @click="create" class="button">Add field</md-button>
+      <router-link to="/"class="button"> Create new field</router-link>
       <ul>
         <li v-for="field in fields">
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}</router-link>

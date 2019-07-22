@@ -105,14 +105,13 @@
                     mutator_id : this.mutator_id
                 }
                 axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/', data)
-                    .then(() => {
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                            return
+                        }
                         alert("Saved")
                     })
-                    // .then((resp) => {
-                    //     if (resp.data.error) {
-                    //         alert(resp.data.error) ???????????????????????????/
-                    //     }
-                    // })
                     .catch((resp) =>{
                         alert(resp)
                     })

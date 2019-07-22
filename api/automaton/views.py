@@ -5,6 +5,7 @@ from django.views import generic
 from automaton.models import Field, Mutator
 from secure.decorators import authorized
 
+
 class CreateFieldView(generic.View):
     @authorized
     def post(self, request):
@@ -16,18 +17,24 @@ class CreateFieldView(generic.View):
 
         return HttpResponse()
 
+
 class FieldView(generic.View):
     @authorized
     def post(self, request, obj_id=None):
-        field = json.loads(request.body)
-        if field['mutator_id'] is None:
-            return HttpResponse(json.dumps({'error':'You did not select a mutator'}))
         if not obj_id:
-            obj = Field.objects.create(user=request.user, name=['no name'],data=field['data'],mutator_id=field['mutator_id'])
+            data = []
+            for i in range(10):
+                data.append([])
+                for _ in range(10):
+                    data[i].append(True)
+            obj = Field.objects.create(user=request.user, name='no name', data=data)
             return HttpResponse(json.dumps({'id':obj.id}))
 
-        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'],data=field['data'],mutator_id=field['mutator_id'])
-        return HttpResponse(json.dumps({'id':obj_id}))
+        field = json.loads(request.body)
+        if field['mutator_id'] is None:
+            return HttpResponse(json.dumps({'error': 'You did not select a mutator'}))
+        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'], data=field['data'], mutator_id=field['mutator_id'])
+        return HttpResponse(json.dumps({'id': obj_id}))
 
     @authorized
     def get(self, request, obj_id):
@@ -39,6 +46,7 @@ class FieldView(generic.View):
 
         return HttpResponse(json.dumps(field))
 
+
 class FieldListView(generic.View):
     @authorized
     def get(self, request):
@@ -47,6 +55,7 @@ class FieldListView(generic.View):
             field_list.append({'name': field.name, 'id': field.id})
 
         return HttpResponse(json.dumps(field_list))
+
 
 class MutatorView(generic.View):
     @authorized
@@ -67,6 +76,7 @@ class MutatorView(generic.View):
         except Mutator.DoesNotExist:
             return HttpResponse(json.dumps({'error' : 'Mutator does not exist'}))
         return HttpResponse(json.dumps(mutator))
+
 
 class MutatorListView(generic.View):
     @authorized
