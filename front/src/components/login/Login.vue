@@ -12,6 +12,7 @@
       Login<input v-model="login_in" type="text"/>
       Password<input v-model="password_in" type="text"/>
       <md-button @click="login">Login</md-button>
+
     </div>
   </div>
 </template>
@@ -26,7 +27,7 @@
                 login_in: "",
                 password_reg: "",
                 password_in: "",
-                password_check: ""
+                password_check: "",
             }
         },
         methods:{

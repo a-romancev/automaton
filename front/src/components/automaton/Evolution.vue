@@ -147,7 +147,7 @@
                     this.mutator.stop()
                 }
                 this.draw = new DrawMutator(this.field, this.$refs.automation)
-                this.mutator = new CustomMutator(this.field, this.rules)
+                this.mutator = new GOLMutator(this.field, this.rules)
                 this.draw.start()
             }
         }

@@ -2,6 +2,7 @@ from django.http import HttpResponseForbidden
 
 from secure.models import Token
 
+
 def authorized(func):
     def wrapper(self, request, *args, **kwargs):
         try:
