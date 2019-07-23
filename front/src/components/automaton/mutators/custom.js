@@ -70,7 +70,7 @@ export default class CustomMutator {
     }
 }
 
-function checkCondition(operator, left,right) {
+function checkCondition(operator, left, right) {
     switch (operator) {
         case Const.operType.eq:
             return left === right

@@ -26,7 +26,7 @@ class FieldView(generic.View):
             for i in range(10):
                 data.append([])
                 for _ in range(10):
-                    data[i].append(True)
+                    data[i].append(False)
             obj = Field.objects.create(user=request.user, name='no name', data=data)
             return HttpResponse(json.dumps({'id':obj.id}))
 
@@ -40,7 +40,10 @@ class FieldView(generic.View):
     def get(self, request, obj_id):
         try:
             obj = Field.objects.get(user=request.user, id=obj_id)
-            field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator':{'rules':obj.mutator.rules }}
+            if obj.mutator:
+                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}}
+            else:
+                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': 1}}
         except Field.DoesNotExist:
             return HttpResponse(json.dumps({'error':'Field does not exist'}))
 

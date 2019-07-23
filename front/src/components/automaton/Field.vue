@@ -8,18 +8,29 @@
     </div>
     <Automaton ref="automation"/>
     <div class="control-panel">
-
       <div class="switch">Control Panel</div>
       <div class="control-panel__title">Control panel</div>
-
+      <div class="control-panel__section">
+        <div>Resolution</div>
+        <input v-model="resolution" type="range" min="10" max="150" step="5">
+        <div>{{ resolution }}</div>
+        <md-button @click="create_new" class="button">Rewrite Field</md-button>
+      </div>
+      <div class="control-panel__section">
+        <md-button @click="generate" class="button">Generate random</md-button>
+        <!--<div>Generate at random</div>-->
+        <!--<input type="checkbox" v-model="checked">-->
+        <div>Density</div>
+        <input v-model="density" type="range" min="0.01" max="1" step="0.01">
+        <div>{{ density }}</div>
+      </div>
       <div class="control-panel__section">
         <md-button @click="init" class="button">Reset field</md-button>
       </div>
       <div class="control-panel__section">
-        <md-button @click="start" class="button">Start</md-button>
-        <md-button @click="save" class=" button">Save field</md-button>
         <div> Field name:</div>
         <input type="text" v-model="name">
+        <md-button @click="save" class=" button">Save field</md-button>
       </div>
       <div class="control-panel__section">
         <nav>
@@ -35,6 +46,7 @@
           <router-link class="link" to='/mutator_list'>My Rules</router-link>
         </nav>
       </div>
+      <md-button @click="start" class="start_button button">Start</md-button>
     </div>
   </div>
 </template>
@@ -53,7 +65,7 @@
 
         data() {
             return {
-                resolution: 10,
+                resolution: 100,
                 density: 0.01,
                 checked: false,
                 name: "no name",
@@ -81,12 +93,14 @@
                     calcHeight(parseInt(this.resolution))
                 )
                 this.load(this.$route.params.id)
-                // if (this.$route.params.id) {
-                //     this.load(this.$route.params.id)
-                // } else {
-                //     this.updateMutators()
-                // }
+            },
 
+            create_new() {
+                this.field = this.$refs.automation.init(
+                    parseInt(this.resolution),
+                    calcHeight(parseInt(this.resolution))
+                )
+                this.updateMutators()
             },
 
             generate() {
@@ -177,7 +191,7 @@
 
     .control-panel
       $wd: 300px
-      height: 560px
+      height: 750px
       width: $wd
       right: -$wd
       top: 0
@@ -221,7 +235,7 @@
       width: 250px
       margin: 10px auto
 
-    .start-button
+    .start_button
       width: 250px
 
 </style>
