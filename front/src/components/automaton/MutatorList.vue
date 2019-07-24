@@ -3,7 +3,7 @@
     <div>
       <div class="title">Mutator List</div>
       <md-button @click="create" class="button">Add mutator</md-button>
-      <ul>
+      <ul class="list">
         <li v-for="mutator in mutators">
           <router-link :to="{path: '/mutator/' + mutator.id}" class="link">{{ mutator.name }}</router-link>
         </li>
@@ -56,9 +56,20 @@
   display: inline-flex
 
 .button
+  background-color: #49A078
+  cursor: pointer
+  width: 200px
+  margin: 5px auto
   color: whitesmoke
 
 .title
   padding: 20px
   font-size: 25px
+
+.list
+  font-size: 20px
+  list-style-type: none
+  padding-left: 0
+  line-height: 30px
+
 </style>

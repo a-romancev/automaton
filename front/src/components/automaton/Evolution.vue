@@ -107,74 +107,74 @@
 
 <style scoped lang="sass">
 
-  .content
-    position: relative
-    width: 100%
-    height: 100%
+.content
+  position: relative
+  width: 100%
+  height: 100%
 
-  .hello
-    color: #fefeff
-    margin: 10px
-    text-align: center
-    font-size: 20px
-    position: absolute
-    width: 100%
-    opacity: 0.7
-    -moz-user-select: none
-    -webkit-user-select: none
-    user-select: none
+.hello
+  color: #fefeff
+  margin: 10px
+  text-align: center
+  font-size: 20px
+  position: absolute
+  width: 100%
+  opacity: 0.7
+  -moz-user-select: none
+  -webkit-user-select: none
+  user-select: none
 
-  .explanation
-    font-size: 12px
-    color: #a9b2b6
+.explanation
+  font-size: 12px
+  color: #a9b2b6
 
-  .control-panel
-    $wd: 300px
-    height: 460px
-    width: $wd
-    right: -$wd
-    top: 0
-    position: fixed
-    color: whitesmoke
-    margin-top: 50px
-    padding: 0
-    border: #58667c 5px solid
-    display: block
-    transition: right ease-out 0.6s
-    background-color: #3c4556
-    transition-delay: 1.5s
-    &:hover
-      right: 0
-      transition: right ease-out 0.35s
+.control-panel
+  $wd: 300px
+  height: 460px
+  width: $wd
+  right: -$wd
+  top: 0
+  position: fixed
+  color: whitesmoke
+  margin-top: 50px
+  padding: 0
+  border: #58667c 5px solid
+  display: block
+  transition: right ease-out 0.6s
+  background-color: #3c4556
+  transition-delay: 1.5s
+  &:hover
+    right: 0
+    transition: right ease-out 0.35s
 
-  .switch
-    position: relative
-    top: 50%
-    left: -65px
-    width: 100px
-    height: 25px
-    background: #49A078
-    transform: rotate(-90deg)
-    border: #58667c 3px solid
+.switch
+  position: relative
+  top: 50%
+  left: -65px
+  width: 100px
+  height: 25px
+  background: #49A078
+  transform: rotate(-90deg)
+  border: #58667c 3px solid
 
-  .control-panel__title
-    font-size: 25px
-    top: 0px
+.control-panel__title
+  font-size: 25px
+  top: 0px
 
-  .button
-    background-color: #49A078
-    cursor: pointer
-    width: 200px
-    margin: 5px auto
-    color: whitesmoke
+.button
+  background-color: #49A078
+  cursor: pointer
+  width: 200px
+  margin: 5px auto
+  color: whitesmoke
 
-  .control-panel__section
-    padding: 10px
-    border: #58667c 3px solid
-    width: 250px
-    margin: 10px auto
+.control-panel__section
+  padding: 10px
+  border: #58667c 3px solid
+  width: 250px
+  margin: 10px auto
 
-  .start-button
-    width: 250px
+.start-button
+  width: 250px
 
 </style>
