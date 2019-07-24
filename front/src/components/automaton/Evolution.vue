@@ -23,25 +23,15 @@
 
       <div class="control-panel__section">
       <md-button @click="generate" class="button">Generate random</md-button>
-      <!--<div>Generate at random</div>-->
-      <!--<input type="checkbox" v-model="checked">-->
       <div>Density</div>
       <input v-model="density" type="range" min="0.01" max="1" step="0.01">
       <div>{{ density }}</div>
       </div>
 
       <md-button @click="start" class="start-button button">Start</md-button>
-      <md-button @click="save" class="start-button button">Save field</md-button>
-      <div> Field name:</div>
-      <input type="text" v-model="name">
       <nav>
         <router-link class="link" to='/field_list'>My Fields</router-link>
         <div></div>
-        <select v-model="mutator_id">
-          <option :value="mutator.id" v-for="mutator in mutators">
-            {{mutator.name}}
-          </option>
-        </select>
         <router-link class="link" to='/mutator_list'>My Rules</router-link>
       </nav>
 
@@ -53,10 +43,7 @@
     import Automaton from "./Automaton"
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
-    import CustomMutator from "@/components/automaton/mutators/custom.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
-    import axios from "axios"
-    import conf from "@/conf.js"
 
     export default {
         name: 'Evolution',
@@ -65,10 +52,6 @@
             return {
                 resolution: 10,
                 density: 0.01,
-                checked: false,
-                name: "no name",
-                mutators: [],
-                mutator_id: null
             }
         },
 
@@ -80,11 +63,6 @@
 
         methods: {
             init() {
-                axios.get(conf.API_URL + '/api/mutator_list/')
-                    .then((resp) => { this.mutators = resp.data } )
-                    .catch((resp) =>{
-                        alert(resp)
-                    })
 
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
@@ -105,38 +83,6 @@
 
             start() {
                 this.mutator.start()
-            },
-
-            save() {
-                let data = {
-                    name: this.name,
-                    data: this.field.data,
-                    mutator_id : this.mutator_id
-                }
-                axios.post(conf.API_URL + '/api/field/', data)
-                    .then((resp) => {
-                        if (resp.data.error) {
-                            alert(resp.data.error)
-                        }
-                    })
-                    .catch((resp) =>{
-                        alert(resp)
-                    })
-            },
-
-            load(id) {
-                axios.get(conf.API_URL + '/api/field/' + id)
-                    .then((response) => {
-                        if (response.data.error) {
-                            alert(response.data.error)
-                            return
-                        }
-                        this.mutator_id = response.data.mutator_id
-                        this.name = response.data.name
-                        this.field.load(response.data.data)
-                        this.rules = response.data.mutator.rules
-                        this.updateMutators()
-                    })
             },
 
             updateMutators() {
@@ -184,7 +130,7 @@
 
   .control-panel
     $wd: 300px
-    height: 560px
+    height: 460px
     width: $wd
     right: -$wd
     top: 0
