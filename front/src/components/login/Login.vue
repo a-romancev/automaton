@@ -47,7 +47,7 @@
                             alert(resp.data.error)
                             return
                         }
-                        this.$router.push('/')
+                        this.$router.push('/field_list')
 
                     })
                     .catch((resp) => {
@@ -65,7 +65,7 @@
                             alert(resp.data.error)
                             return
                         }
-                        this.$router.push('/')
+                        this.$router.push('/field_list')
 
                     })
                     .catch((resp) => {
@@ -105,5 +105,5 @@
 
 .alert
   color: red
-  
+
 </style>
