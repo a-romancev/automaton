@@ -31,7 +31,7 @@
           <router-link class="link" to='/field_list'>My Fields</router-link>
           <br>
           Mutator
-          <select @change="boop" v-model="mutator_id">
+          <select @change="realTimeMutators" v-model="mutator_id">
             <option  :value="mutator.id" v-for="mutator in mutators">
               {{mutator.name}}
             </option>
@@ -75,7 +75,7 @@
         },
 
         methods: {
-            boop() {
+            realTimeMutators() {
                 axios.get(conf.API_URL + '/api/mutator/' + this.mutator_id)
                     .then((response) => {
                         if (response.data.error) {

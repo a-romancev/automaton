@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
+from django.http import HttpResponseForbidden
 
 from secure.models import Token
 
@@ -42,3 +43,11 @@ class LoginView(generic.View):
         resp = HttpResponse(json.dumps({'id': user.id}))
         resp.set_cookie(key="token", value=key, httponly=True)
         return resp
+
+    def get(self, request):
+        try:
+            token = Token.objects.get(key=request.COOKIES.get('token'))
+        except Token.DoesNotExist:
+            return HttpResponseForbidden()
+        return HttpResponse()
+

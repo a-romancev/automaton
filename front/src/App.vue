@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="content">
     <header class="app_header">
-      <router-link v-if="3>2" class="header_item header_item_right" to='/login'>Login</router-link>
-      <router-link v-if="3>2" class="header_item header_item_right" to='/mutator_list'>My mutators</router-link>
-      <router-link v-if="3>2" class="header_item header_item_right" to='/field_list'>My fields</router-link>
+      <router-link v-if="this.$store.getters.LOGON === false" class="header_item header_item_right" to='/login'>Login</router-link>
+      <router-link v-if="this.$store.getters.LOGON" class="header_item header_item_right" to='/mutator_list'>My mutators</router-link>
+      <router-link v-if="this.$store.getters.LOGON" class="header_item header_item_right" to='/field_list'>My fields</router-link>
       <router-link class="header_item header_item_left" to='/'>Home</router-link>
     </header>
     <router-view/>
@@ -12,15 +12,28 @@
 
 <script>
 import Automaton from './components/automaton/Automaton.vue'
-import Evolution from "./components/automaton/Evolution";
+import Evolution from "./components/automaton/Evolution"
+import axios from "axios"
+import conf from "@/conf.js"
 
 export default {
-  name: 'app',
-  components: {
-      Evolution,
-    Automaton
-  }
+    name: 'app',
+    components: {
+        Evolution,
+        Automaton
+    },
+    mounted() {
+        axios.get(conf.API_URL + '/api/login/')
+            .then((resp) => {
+                if (resp.data.error) {
+                    alert(resp.data.error)
+                    return
+                }
+                this.$store.commit('SET_LOGON', true)
+            })
+    }
 }
+
 </script>
 
 <style lang="sass">

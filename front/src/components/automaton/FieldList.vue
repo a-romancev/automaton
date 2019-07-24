@@ -24,6 +24,7 @@
         },
         name: "FieldList",
         mounted() {
+
             axios.get(conf.API_URL + '/api/field_list/')
                 .then((resp) => { this.fields = resp.data } )
                 .catch((resp) =>{

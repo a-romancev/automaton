@@ -13,7 +13,6 @@
       Login<input v-model="login_in" type="text"/>
       Password<input v-model="password_in" type="password"/>
       <md-button @click="login">Login</md-button>
-
     </div>
   </div>
 </template>
@@ -33,6 +32,8 @@
                 reg_success: false,
             }
         },
+        mounted(){},
+
         methods:{
             register() {
                 if (this.password_reg !== this.password_check) {
@@ -47,14 +48,13 @@
                             alert(resp.data.error)
                             return
                         }
-                        this.$router.push('/field_list')
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {
                         console.log(resp)
                         alert(resp)
                     })
-                this.$router.push('/')
 
             },
 
@@ -65,7 +65,7 @@
                             alert(resp.data.error)
                             return
                         }
-                        this.$router.push('/field_list')
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {

@@ -44,6 +44,8 @@
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
     import GOLMutator from "@/components/automaton/mutators/gol.js"
+    import axios from "axios"
+    import conf from "@/conf.js"
 
     export default {
         name: 'Evolution',
@@ -58,12 +60,20 @@
         components: {Automaton},
 
         mounted() {
+            axios.get(conf.API_URL + '/api/login/')
+                .then((resp) => {
+                    if (resp.data.error) {
+                        alert(resp.data.error)
+                        return
+                    }
+                    this.$store.commit('SET_LOGON', true)
+                })
             this.init()
         },
 
         methods: {
-            init() {
 
+            init() {
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
                     calcHeight(parseInt(this.resolution))
