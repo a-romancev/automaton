@@ -68,16 +68,16 @@ class MutatorView(generic.View):
             return HttpResponse(json.dumps({'id':obj.id}))
 
         mutator = json.loads(request.body)
-        Mutator.objects.filter(user=request.user, id=obj_id).update(name=mutator['name'],rules=mutator['rules'])
+        Mutator.objects.filter(user=request.user, id=obj_id).update(name=mutator['name'], rules=mutator['rules'])
         return HttpResponse(json.dumps({'id':obj_id}))
 
     @authorized
     def get(self, request, obj_id):
         try:
             obj = Mutator.objects.get(user=request.user, id=obj_id)
-            mutator = {'name' : obj.name, 'id' : obj.id, 'rules' : obj.rules}
+            mutator = {'name': obj.name, 'id': obj.id, 'rules': obj.rules}
         except Mutator.DoesNotExist:
-            return HttpResponse(json.dumps({'error' : 'Mutator does not exist'}))
+            return HttpResponse(json.dumps({'error': 'Mutator does not exist'}))
         return HttpResponse(json.dumps(mutator))
 
 

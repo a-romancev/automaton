@@ -31,8 +31,8 @@
           <router-link class="link" to='/field_list'>My Fields</router-link>
           <br>
           Mutator
-          <select v-model="mutator_id">
-            <option :value="mutator.id" v-for="mutator in mutators">
+          <select @change="boop" v-model="mutator_id">
+            <option  :value="mutator.id" v-for="mutator in mutators">
               {{mutator.name}}
             </option>
           </select>
@@ -75,6 +75,19 @@
         },
 
         methods: {
+            boop() {
+                axios.get(conf.API_URL + '/api/mutator/' + this.mutator_id)
+                    .then((response) => {
+                        if (response.data.error) {
+                            alert(response.data.error)
+                            return
+                        }
+                        this.mutator_id = response.data.id
+                        this.rules = response.data.rules
+                        this.updateMutators()
+                    })
+            },
+
             init() {
                 axios.get(conf.API_URL + '/api/mutator_list/')
                     .then((resp) => { this.mutators = resp.data } )
