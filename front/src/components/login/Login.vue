@@ -3,17 +3,15 @@
     <div class="register_block block">
       <div class="title">Register</div>
       Login <input v-model="login_reg" type="text"/>
-      Password <input v-model="password_reg" type="text"/>
-      Password again <input v-model="password_check" type="text"/>
+      Password <input @change="pass_not_match = false" v-model="password_reg" type="password"/>
+      Password again <input v-model="password_check" type="password"/>
       <div v-if="pass_not_match" class="alert">Passwords do not match!</div>
-      <div v-if="reg_success" class="success">Registration complete!</div>
       <md-button @click="register">Register</md-button>
     </div>
     <div class="login_block block">
       <div class="title">Login</div>
       Login<input v-model="login_in" type="text"/>
-      Password<input v-model="password_in" type="text"/>
-      <div v-if="reg_success" class="success">Login successful!</div>
+      Password<input v-model="password_in" type="password"/>
       <md-button @click="login">Login</md-button>
 
     </div>
@@ -33,7 +31,6 @@
                 password_check: "",
                 pass_not_match: false,
                 reg_success: false,
-                log_success: false
             }
         },
         methods:{
@@ -41,9 +38,6 @@
                 if (this.password_reg !== this.password_check) {
                     this.pass_not_match = true
 
-                    setTimeout(function () {
-                        this.pass_not_match = false
-                    } , 2000)
                     return
                 }
 
@@ -53,14 +47,14 @@
                             alert(resp.data.error)
                             return
                         }
-                        alert("register successful")
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {
                         console.log(resp)
                         alert(resp)
                     })
-                this.reg_success = true
+                this.$router.push('/')
 
             },
 
@@ -71,13 +65,14 @@
                             alert(resp.data.error)
                             return
                         }
-                        this.log_success = true
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {
                         console.log(resp)
                         alert(resp)
                     })
+
             }
         }
     }
@@ -110,7 +105,5 @@
 
 .alert
   color: red
-
-.success
-  color: deepskyblue
+  
 </style>

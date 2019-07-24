@@ -43,7 +43,7 @@ class FieldView(generic.View):
             if obj.mutator:
                 field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}}
             else:
-                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': 1}}
+                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': []}}
         except Field.DoesNotExist:
             return HttpResponse(json.dumps({'error':'Field does not exist'}))
 
