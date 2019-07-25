@@ -7,6 +7,17 @@
       <div class="switch">Control Panel</div>
       <div class="control-panel__title">Control panel</div>
       <div class="control-panel__section">
+        Mutator
+        <select @change="realTimeMutators" v-model="mutator_id">
+          <option :value="mutator.id" v-for="mutator in mutators">
+            {{mutator.name}}
+          </option>
+        </select>
+        <div class="color_picker">
+          Color <input @change="Check" v-model="color" type="color">
+        </div>
+      </div>
+      <div class="control-panel__section">
         <div>Resolution</div>
         <input v-model="resolution" type="range" min="10" max="150" step="5">
         <div>{{ resolution }}</div>
@@ -25,14 +36,6 @@
         <div> Field name:</div>
         <input type="text" v-model="name">
         <md-button @click="save" class=" button">Save field</md-button>
-      </div>
-      <div class="control-panel__section">
-          Mutator
-          <select @change="realTimeMutators" v-model="mutator_id">
-            <option  :value="mutator.id" v-for="mutator in mutators">
-              {{mutator.name}}
-            </option>
-          </select>
       </div>
       <md-button @click="start" class="start_button button">Start</md-button>
 
@@ -58,7 +61,8 @@
                 checked: false,
                 name: "no name",
                 mutators: [],
-                mutator_id: null
+                mutator_id: null,
+                color: "#49A078"
             }
         },
 
@@ -69,6 +73,15 @@
         },
 
         methods: {
+            Check(color) {
+                this.field = this.$refs.automation.init(
+                    parseInt(this.resolution),
+                    calcHeight(parseInt(this.resolution)),
+                    this.color
+                )
+                this.load(this.$route.params.id)
+                console.log(color)
+            },
             realTimeMutators() {
                 axios.get(conf.API_URL + '/api/mutator/' + this.mutator_id)
                     .then((response) => {
@@ -91,7 +104,8 @@
 
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution))
+                    calcHeight(parseInt(this.resolution)),
+                    this.color
                 )
                 this.load(this.$route.params.id)
             },
@@ -99,7 +113,8 @@
             create_new() {
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution))
+                    calcHeight(parseInt(this.resolution)),
+                    this.color
                 )
                 this.updateMutators()
             },
@@ -170,58 +185,60 @@
 
 <style scoped lang="sass">
 
-  .content
-    position: relative
-    width: 100%
-    height: 100%
+.content
+  position: relative
+  width: 100%
+  height: 100%
 
-  .control-panel
-    $wd: 300px
-    height: 750px
-    width: $wd
-    right: -$wd
-    top: 0
-    position: fixed
-    color: whitesmoke
-    margin-top: 50px
-    padding: 0
-    border: #58667c 5px solid
-    display: block
-    transition: right ease-out 0.6s
-    background-color: #3c4556
-    transition-delay: 1.5s
-    &:hover
-      right: 0
-      transition: right ease-out 0.35s
+.control-panel
+  $wd: 300px
+  height: 750px
+  width: $wd
+  right: -$wd
+  top: 0
+  position: fixed
+  color: whitesmoke
+  margin-top: 50px
+  padding: 0
+  border: #58667c 5px solid
+  display: block
+  transition: right ease-out 0.6s
+  background-color: #3c4556
+  transition-delay: 1.5s
+  &:hover
+    right: 0
+    transition: right ease-out 0.35s
 
-  .switch
-    position: relative
-    top: 50%
-    left: -65px
-    width: 100px
-    height: 25px
-    background: #49A078
-    transform: rotate(-90deg)
-    border: #58667c 3px solid
+.switch
+  position: relative
+  top: 50%
+  left: -65px
+  width: 100px
+  height: 25px
+  background: #49A078
+  transform: rotate(-90deg)
+  border: #58667c 3px solid
 
-  .control-panel__title
-    font-size: 25px
-    top: 0px
+.control-panel__title
+  font-size: 25px
+  top: 0px
 
-  .button
-    background-color: #49A078
-    cursor: pointer
-    width: 200px
-    margin: 5px auto
-    color: whitesmoke
+.button
+  background-color: #49A078
+  cursor: pointer
+  width: 200px
+  margin: 5px auto
+  color: whitesmoke
 
-  .control-panel__section
-    padding: 10px
-    border: #58667c 3px solid
-    width: 250px
-    margin: 10px auto
+.control-panel__section
+  padding: 10px
+  border: #58667c 3px solid
+  width: 250px
+  margin: 10px auto
 
-  .start_button
-    width: 250px
+.start_button
+  width: 250px
 
+.color_picker
+  padding: 10px
 </style>

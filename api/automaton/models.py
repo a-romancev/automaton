@@ -7,6 +7,7 @@ class Field(models.Model):
     data = JSONField()
     user = models.ForeignKey(User, related_name='fields', on_delete=models.CASCADE)
     name = models.TextField()
+    # color = models.ForeignKey('Color', related_name='fields', on_delete=models.SET("#49A078"), null=True)
     mutator = models.ForeignKey('Mutator', related_name='fields', on_delete=models.SET(None), null=True)
 
 

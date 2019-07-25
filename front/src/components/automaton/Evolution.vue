@@ -29,11 +29,6 @@
       </div>
 
       <md-button @click="start" class="start-button button">Start</md-button>
-      <!--<nav>-->
-        <!--<router-link class="link" to='/field_list'>My Fields</router-link>-->
-        <!--<div></div>-->
-        <!--<router-link class="link" to='/mutator_list'>My Rules</router-link>-->
-      <!--</nav>-->
 
     </div>
   </div>

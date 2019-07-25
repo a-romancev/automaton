@@ -1,8 +1,9 @@
 export default class Renderer {
-    constructor (canvasElement, field) {
+    constructor (canvasElement, field, color) {
         this.element = canvasElement
         this.field = field
         this.id = null
+        this.color = color
     }
 
     start () {
@@ -18,7 +19,7 @@ export default class Renderer {
         this.element.width = this.element.clientWidth
         this.element.height = this.element.clientHeight
         const ctx = this.element.getContext('2d')
-        ctx.fillStyle = "#49A078"
+        ctx.fillStyle = this.color
         ctx.strokeStyle = "#3c4556"
 
         let height = this.element.clientHeight / this.field.height
