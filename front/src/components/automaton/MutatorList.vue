@@ -87,7 +87,7 @@
   position: absolute
   padding-left: 20px
   &:hover
-    font-size: 23px
+    font-size: 22px
     color: #50b385
     transition: color, font-size 0.1s
     text-decoration: none

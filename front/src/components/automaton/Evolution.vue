@@ -60,15 +60,15 @@
         components: {Automaton},
 
         mounted() {
-            // axios.get(conf.API_URL + '/api/login/')
-            //     .then((resp) => {
-            //         if (resp.data.error) {
-            //             alert(resp.data.error)
-            //             return
-            //         }
-            //         this.$store.commit('SET_LOGON', true)
-            //     })
-            // this.init()
+            axios.get(conf.API_URL + '/api/login/')
+                .then((resp) => {
+                    if (resp.data.error) {
+                        alert(resp.data.error)
+                        return
+                    }
+                    this.$store.commit('SET_LOGON', true)
+                })
+            this.init()
         },
 
         methods: {
