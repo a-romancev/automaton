@@ -37,8 +37,8 @@
         methods: {
             delete_field(id) {
                 axios.delete(conf.API_URL + '/api/field/' + id)
-                    .then((resp) => {
-                        console.log(resp)
+                    .catch((resp) => {
+                        alert(resp)
                     })
                 // this.$router.go()
             },

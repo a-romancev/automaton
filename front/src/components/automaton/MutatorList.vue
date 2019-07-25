@@ -40,7 +40,6 @@
             delete_mutator(id) {
                 axios.delete(conf.API_URL + '/api/mutator/' + id)
                     .then((resp) => {
-                        console.log(resp)
                     })
                 // this.$router.go()
             },

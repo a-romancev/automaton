@@ -14,7 +14,6 @@
           </option>
         </select>
         <div class="button" @click="go_to(mutator_id)">Go to</div>
-        <div class="button" @click="test">Create new mutator</div>
         <div class="color_picker">
           Color <input @change="color_change" v-model="color" type="color">
         </div>
@@ -24,7 +23,6 @@
         <input v-model="resolution" type="range" min="10" max="150" step="5">
         <div>{{ resolution }}</div>
         <md-button @click="create_new" class="button">Refill Field</md-button>
-        <md-button @click="init" class="button">Reset field</md-button>
       </div>
       <div class="control-panel__section">
         <md-button @click="generate" class="button">Generate random</md-button>
@@ -33,11 +31,10 @@
         <div>{{ density }}</div>
       </div>
       <div class="control-panel__section">
-        <div> Field name:</div>
-        <input type="text" v-model="name">
-        <md-button @click="save" class=" button">Save field</md-button>
-        <div class="button">Share this field</div>
+        <md-button @click="init" class="button">Reset field</md-button>
       </div>
+      <div class="button">Clone this field to my library</div>
+      <div class="button">Share this field</div>
       <md-button @click="start" class="start_button button">Start</md-button>
 
     </div>
@@ -77,17 +74,6 @@
             share() {
 
             },
-
-            test() {
-                axios.post(conf.API_URL + '/api/mutator/')
-                    .then((resp) => {
-                        this.$router.push('/mutator/' + resp.data.id)
-                    })
-                    .catch((resp) =>{
-                        alert(resp)
-                    })
-            },
-
             go_to(id) {
                 if (id === null) {
                     return
@@ -150,25 +136,6 @@
                 this.mutator.start()
             },
 
-            save() {
-                let data = {
-                    name: this.name,
-                    data: this.field.data,
-                    mutator_id : this.mutator_id
-                }
-                axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/', data)
-                    .then((resp) => {
-                        if (resp.data.error) {
-                            alert(resp.data.error)
-                            return
-                        }
-                        alert("Saved")
-                    })
-                    .catch((resp) =>{
-                        alert(resp)
-                    })
-            },
-
             load(id) {
                 axios.get(conf.API_URL + '/api/field/' + id)
                     .then((response) => {
@@ -215,7 +182,7 @@
 
 .control-panel
   $wd: 300px
-  height: 800px
+  height: 750px
   width: $wd
   right: -$wd
   top: 0
