@@ -30,6 +30,7 @@ class RegisterView(generic.View):
         resp.set_cookie(key="token", value=key, httponly=True)
         return resp
 
+
 class LoginView(generic.View):
     def post(self, request):
         user_data = json.loads(request.body)
@@ -46,7 +47,7 @@ class LoginView(generic.View):
 
     def get(self, request):
         try:
-            token = Token.objects.get(key=request.COOKIES.get('token'))
+            Token.objects.get(key=request.COOKIES.get('token'))
         except Token.DoesNotExist:
             return HttpResponseForbidden()
         return HttpResponse()

@@ -9,6 +9,7 @@ class Field(models.Model):
     name = models.TextField()
     mutator = models.ForeignKey('Mutator', related_name='fields', on_delete=models.CASCADE, null=True)
 
+
 class Mutator(models.Model):
     rules = JSONField(default=list())
     user = models.ForeignKey(User, related_name='mutators', on_delete=models.CASCADE)

@@ -27,18 +27,12 @@
         <md-button @click="save" class=" button">Save field</md-button>
       </div>
       <div class="control-panel__section">
-        <nav>
-          <router-link class="link" to='/field_list'>My Fields</router-link>
-          <br>
           Mutator
           <select @change="realTimeMutators" v-model="mutator_id">
             <option  :value="mutator.id" v-for="mutator in mutators">
               {{mutator.name}}
             </option>
           </select>
-          <br>
-          <router-link class="link" to='/mutator_list'>My Rules</router-link>
-        </nav>
       </div>
       <md-button @click="start" class="start_button button">Start</md-button>
 

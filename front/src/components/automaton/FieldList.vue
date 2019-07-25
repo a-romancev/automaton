@@ -4,8 +4,9 @@
       <div class="title">Field List</div>
       <md-button @click="create" class="button">Add field</md-button>
       <ul class="list">
-        <li v-for="field in fields">
-          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}</router-link>
+        <li v-for="field in fields" >
+          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} </router-link>
+          <a @click="delete_field(field.id)" class="cross">{{field.id}}</a>
         </li>
       </ul>
     </div>
@@ -15,6 +16,7 @@
 <script>
     import axios from "axios"
     import conf from "@/conf.js"
+
     export default {
         data() {
             return {
@@ -30,9 +32,16 @@
                 .catch((resp) =>{
                     alert(resp)
                 })
-            //.then((resp) => { console.log(resp.data) } )
         },
+
         methods: {
+            delete_field(id) {
+                axios.delete(conf.API_URL + '/api/field/' + id)
+                    .then((resp) => {
+                        console.log(resp)
+                    })
+                // this.$router.go()
+            },
             create() {
                 axios.post(conf.API_URL + '/api/field/')
                     .then((resp) => {
@@ -68,4 +77,18 @@
   list-style-type: none
   padding-left: 0
   line-height: 30px
+
+.cross
+  text-decoration: none
+  cursor: pointer
+  font-size: 20px
+  position: absolute
+  padding-left: 20px
+  &:hover
+    font-size: 23px
+    color: #50b385
+    transition: color, font-size 0.1s
+    text-decoration: none
+
+
 </style>

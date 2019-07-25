@@ -49,6 +49,13 @@ class FieldView(generic.View):
 
         return HttpResponse(json.dumps(field))
 
+    @authorized
+    def delete(self, request, obj_id):
+        try:
+            Field.objects.filter(user=request.user, id=obj_id).delete()
+        except Field.DoesNotExist:
+            return HttpResponse(json.dumps({'error':'Field does not exist'}))
+        return HttpResponse(json.dumps({'fopa':'jopa'}))
 
 class FieldListView(generic.View):
     @authorized
