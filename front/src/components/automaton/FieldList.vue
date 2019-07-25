@@ -6,7 +6,7 @@
       <ul class="list">
         <li v-for="field in fields" >
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} </router-link>
-          <a @click="delete_field(field.id)" class="cross">{{field.id}}</a>
+          <a @click="delete_field(field.id)" class="cross">X</a>
         </li>
       </ul>
     </div>

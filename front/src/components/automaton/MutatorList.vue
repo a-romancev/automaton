@@ -6,6 +6,7 @@
       <ul class="list">
         <li v-for="mutator in mutators">
           <router-link :to="{path: '/mutator/' + mutator.id}" class="link">{{ mutator.name }}</router-link>
+          <a @click="delete_mutator(mutator.id)" class="cross">X</a>
         </li>
       </ul>
     </div>
@@ -36,6 +37,13 @@
 
         },
         methods: {
+            delete_mutator(id) {
+                axios.delete(conf.API_URL + '/api/mutator/' + id)
+                    .then((resp) => {
+                        console.log(resp)
+                    })
+                // this.$router.go()
+            },
             create() {
                 axios.post(conf.API_URL + '/api/mutator/')
                     .then((resp) => {
@@ -71,5 +79,19 @@
   list-style-type: none
   padding-left: 0
   line-height: 30px
+
+.cross
+  text-decoration: none
+  cursor: pointer
+  font-size: 20px
+  position: absolute
+  padding-left: 20px
+  &:hover
+    font-size: 23px
+    color: #50b385
+    transition: color, font-size 0.1s
+    text-decoration: none
+
+
 
 </style>

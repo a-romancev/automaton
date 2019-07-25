@@ -45,7 +45,7 @@ class FieldView(generic.View):
             else:
                 field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': []}}
         except Field.DoesNotExist:
-            return HttpResponse(json.dumps({'error':'Field does not exist'}))
+            return HttpResponse(json.dumps({'error': 'Field does not exist'}))
 
         return HttpResponse(json.dumps(field))
 
@@ -54,8 +54,9 @@ class FieldView(generic.View):
         try:
             Field.objects.filter(user=request.user, id=obj_id).delete()
         except Field.DoesNotExist:
-            return HttpResponse(json.dumps({'error':'Field does not exist'}))
-        return HttpResponse(json.dumps({'fopa':'jopa'}))
+            return HttpResponse(json.dumps({'error': 'Field does not exist'}))
+        return HttpResponse()
+
 
 class FieldListView(generic.View):
     @authorized
@@ -72,11 +73,11 @@ class MutatorView(generic.View):
     def post(self, request, obj_id=None):
         if not obj_id:
             obj = Mutator.objects.create(user=request.user, name='no name')
-            return HttpResponse(json.dumps({'id':obj.id}))
+            return HttpResponse(json.dumps({'id': obj.id}))
 
         mutator = json.loads(request.body)
         Mutator.objects.filter(user=request.user, id=obj_id).update(name=mutator['name'], rules=mutator['rules'])
-        return HttpResponse(json.dumps({'id':obj_id}))
+        return HttpResponse(json.dumps({'id': obj_id}))
 
     @authorized
     def get(self, request, obj_id):
@@ -86,6 +87,14 @@ class MutatorView(generic.View):
         except Mutator.DoesNotExist:
             return HttpResponse(json.dumps({'error': 'Mutator does not exist'}))
         return HttpResponse(json.dumps(mutator))
+
+    @authorized
+    def delete(self, request, obj_id):
+        try:
+            Mutator.objects.filter(user=request.user, id=obj_id).delete()
+        except Mutator.DoesNotExist:
+            return HttpResponse(json.dumps({'error': 'Mutator does not exist'}))
+        return HttpResponse()
 
 
 class MutatorListView(generic.View):
