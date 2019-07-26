@@ -6,7 +6,7 @@
       <ul class="list">
         <li v-for="field in fields" >
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} </router-link>
-          <a @click="delete_field(field.id)" class="cross">X</a>
+          <a @click="delete_field(field.id)" class="cross material-icons">clear</a>
         </li>
       </ul>
     </div>
@@ -37,10 +37,16 @@
         methods: {
             delete_field(id) {
                 axios.delete(conf.API_URL + '/api/field/' + id)
+                    .then(() =>{
+                        axios.get(conf.API_URL + '/api/field_list/')
+                            .then((resp) => { this.fields = resp.data } )
+                            .catch((resp) =>{
+                                alert(resp)
+                            })
+                    })
                     .catch((resp) => {
                         alert(resp)
                     })
-                // this.$router.go()
             },
             create() {
                 axios.post(conf.API_URL + '/api/field/')
@@ -85,7 +91,6 @@
   position: absolute
   padding-left: 20px
   &:hover
-    font-size: 22px
     color: #50b385
     transition: color, font-size 0.1s
     text-decoration: none

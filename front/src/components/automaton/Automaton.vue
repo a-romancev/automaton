@@ -22,10 +22,13 @@ export default {
             }
             this.field = new Field(width, height)
             this.renderer = new Renderer(this.$refs.canvas, this.field, color)
-            console.log(color)
             this.renderer.start()
             return this.field
-        }
+        },
+
+        set_color(color){
+            this.renderer.set_color(color)
+        },
 
     }
 }

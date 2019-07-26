@@ -95,13 +95,9 @@
                 this.$router.push("/mutator/"+ id + "/")
 
             },
+
             color_change() {
-                this.field = this.$refs.automation.init(
-                    parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution)),
-                    this.color
-                )
-                this.load(this.$route.params.id)
+                this.$refs.automation.set_color(this.color)
             },
 
             realTimeMutators() {
@@ -154,7 +150,8 @@
                 let data = {
                     name: this.name,
                     data: this.field.data,
-                    mutator_id : this.mutator_id
+                    mutator_id : this.mutator_id,
+                    color: this.color
                 }
                 axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/', data)
                     .then((resp) => {
@@ -180,8 +177,11 @@
                         this.name = response.data.name
                         this.field.load(response.data.data)
                         this.rules = response.data.mutator.rules
+                        this.color = response.data.color
+                        this.$refs.automation.set_color(response.data.color)
                         this.updateMutators()
                     })
+
             },
 
             updateMutators() {

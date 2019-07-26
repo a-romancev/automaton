@@ -41,8 +41,10 @@
                     name: this.name,
                     rules: []
                 }
-                for (let rule of this.$refs.rule) {
-                    data.rules.push(rule.save())
+                if (this.$refs.rule) {
+                    for (let rule of this.$refs.rule) {
+                        data.rules.push(rule.save())
+                    }
                 }
                 axios.post(conf.API_URL + '/api/mutator/' + this.$route.params.id + '/', data)
                     .then(() => {

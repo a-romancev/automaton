@@ -71,7 +71,8 @@
             init() {
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution))
+                    calcHeight(parseInt(this.resolution)),
+                    "#49A078"
                 )
                 if (this.$route.params.id) {
                     this.load(this.$route.params.id)

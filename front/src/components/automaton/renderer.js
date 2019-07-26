@@ -15,6 +15,10 @@ export default class Renderer {
         window.cancelAnimationFrame(this.id)
     }
 
+    set_color (color) {
+        this.color = color
+    }
+
     render () {
         this.element.width = this.element.clientWidth
         this.element.height = this.element.clientHeight

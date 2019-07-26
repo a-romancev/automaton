@@ -33,7 +33,7 @@ class FieldView(generic.View):
         field = json.loads(request.body)
         if field['mutator_id'] is None:
             return HttpResponse(json.dumps({'error': 'You did not select a mutator'}))
-        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'], data=field['data'], mutator_id=field['mutator_id'])
+        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'], data=field['data'], mutator_id=field['mutator_id'], color=field['color'])
         return HttpResponse(json.dumps({'id': obj_id}))
 
     @authorized
@@ -41,9 +41,9 @@ class FieldView(generic.View):
         try:
             obj = Field.objects.get(user=request.user, id=obj_id)
             if obj.mutator:
-                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}}
+                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}, 'color': obj.color}
             else:
-                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': []}}
+                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': []}, 'color': obj.color}
         except Field.DoesNotExist:
             return HttpResponse(json.dumps({'error': 'Field does not exist'}))
 

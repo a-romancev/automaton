@@ -39,9 +39,15 @@
         methods: {
             delete_mutator(id) {
                 axios.delete(conf.API_URL + '/api/mutator/' + id)
-                    .then((resp) => {
+                    .then(() => {
+                        axios.get(conf.API_URL + '/api/mutator_list/')
+                            .then((resp) => { this.mutators = resp.data } )
+                            .catch((resp) =>{
+                                alert(resp)
+                            })
+
                     })
-                // this.$router.go()
+
             },
             create() {
                 axios.post(conf.API_URL + '/api/mutator/')
