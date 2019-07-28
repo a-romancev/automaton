@@ -62,7 +62,6 @@ body, html
   left: 0
   z-index: 5
 
-
 .header_item
   font-size: 15px
   text-decoration: none

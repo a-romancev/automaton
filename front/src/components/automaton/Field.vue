@@ -2,7 +2,6 @@
 
   <div class="content">
     <Automaton ref="automation"/>
-
     <div class="control-panel">
       <div class="switch">Control Panel</div>
       <div class="control-panel__title">Control panel</div>
@@ -14,7 +13,7 @@
           </option>
         </select>
         <div class="button" @click="go_to(mutator_id)">Go to</div>
-        <div class="button" @click="test">Create new mutator</div>
+        <div class="button" @click="create_new_mutator">Create new mutator</div>
         <div class="color_picker">
           Color <input @change="color_change" v-model="color" type="color">
         </div>
@@ -78,7 +77,7 @@
 
             },
 
-            test() {
+            create_new_mutator() {
                 axios.post(conf.API_URL + '/api/mutator/')
                     .then((resp) => {
                         this.$router.push('/mutator/' + resp.data.id)
@@ -211,11 +210,10 @@
   position: relative
   width: 100%
   height: 100%
-  font: to
 
 .control-panel
   $wd: 300px
-  height: 800px
+  height: 830px
   width: $wd
   right: -$wd
   top: 0

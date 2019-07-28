@@ -1,7 +1,7 @@
 <template>
 
   <div class="content">
-    <div class="grid"></div>
+
     <div class="hello">
       Evolution
       <div class="explanation">
@@ -9,6 +9,7 @@
       </div>
     </div>
     <Automaton ref="automation"/>
+
     <div class="control-panel">
 
       <div class="switch">Control Panel</div>
@@ -29,8 +30,8 @@
       </div>
 
       <md-button @click="start" class="start-button button">Start</md-button>
-
     </div>
+
   </div>
 </template>
 
