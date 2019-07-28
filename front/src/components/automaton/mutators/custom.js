@@ -34,25 +34,16 @@ export default class CustomMutator {
     }
 
     processCell(x, y) {
-        const liveNeighbors = this.liveNeighbors(x, y)
-        const alive = this.field.get(x,y)
+        const calcValues = {
+            liveNeighbors: this.liveNeighbors(x, y),
+            alive: this.field.get(x,y)
+        }
         for (let rule of this.rules) {
-            switch (rule.condition.type) {
-                case Const.condType.living:
-                    if (checkCondition(rule.condition.operator,liveNeighbors,rule.condition.aliveCount)) {
-                        this.bufferField.set(x, y, rule.action.populate)
-                        return
-                    }
-                    break
-                case Const.condType.state:
-                    if (alive === rule.condition.populated) {
-                        this.bufferField.set(x, y, rule.action.populate)
-                    }
-                    break
+            if (checkCondition(calcValues, rule.condition)) {
+                this.bufferField.set(x, y, rule.action.populate)
             }
         }
     }
-
 
     liveNeighbors(x, y) {
         let count = 0
@@ -70,7 +61,24 @@ export default class CustomMutator {
     }
 }
 
-function checkCondition(operator, left, right) {
+function checkCondition(calcValues, condition) {
+    switch (condition.type) {
+        case Const.condType.living:
+            if (operator(condition.operator,calcValues.liveNeighbors,condition.aliveCount)) {
+                return true
+            }
+            break
+        case Const.condType.state:
+            if (calcValues.alive === condition.populated) {
+                return true
+            }
+            break
+    }
+
+    return false
+}
+
+function operator(operator, left, right) {
     switch (operator) {
         case Const.operType.eq:
             return left === right
