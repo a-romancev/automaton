@@ -27,6 +27,12 @@
                 type: Const.condType.living,
             }
         },
+        props: {
+            initial: Object
+        },
+        mounted() {
+            this.load(this.initial)
+        },
         computed:{
             typeConst() {
                 return Const.condType
@@ -55,6 +61,4 @@
 
 <style scoped lang="sass">
 
-.add_new
-  cursor: pointer
 </style>
