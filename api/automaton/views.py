@@ -33,13 +33,20 @@ class FieldView(generic.View):
         field = json.loads(request.body)
         if field['mutator_id'] is None:
             return HttpResponse(json.dumps({'error': 'You did not select a mutator'}))
-        Field.objects.filter(user=request.user, id=obj_id).update(name=field['name'], data=field['data'], mutator_id=field['mutator_id'], color=field['color'])
+        updated = Field.objects.filter(user=request.user, id=obj_id).update(
+            name=field['name'],
+            data=field['data'],
+            mutator_id=field['mutator_id'],
+            color=field['color'],
+        )
+        if not updated:
+            return HttpResponse(json.dumps({'error': 'You cant save fields you dont own'}))
         return HttpResponse(json.dumps({'id': obj_id}))
 
     @authorized
     def get(self, request, obj_id):
         try:
-            obj = Field.objects.get(user=request.user, id=obj_id)
+            obj = Field.objects.get(id=obj_id)
             if obj.mutator:
                 field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}, 'color': obj.color}
             else:
@@ -82,7 +89,7 @@ class MutatorView(generic.View):
     @authorized
     def get(self, request, obj_id):
         try:
-            obj = Mutator.objects.get(user=request.user, id=obj_id)
+            obj = Mutator.objects.get(id=obj_id)
             mutator = {'name': obj.name, 'id': obj.id, 'rules': obj.rules}
         except Mutator.DoesNotExist:
             return HttpResponse(json.dumps({'error': 'Mutator does not exist'}))
@@ -90,9 +97,8 @@ class MutatorView(generic.View):
 
     @authorized
     def delete(self, request, obj_id):
-        try:
-            Mutator.objects.filter(user=request.user, id=obj_id).delete()
-        except Mutator.DoesNotExist:
+        deleted, _ = Mutator.objects.filter(user=request.user, id=obj_id).delete()
+        if not deleted:
             return HttpResponse(json.dumps({'error': 'Mutator does not exist'}))
         return HttpResponse()
 
@@ -105,3 +111,17 @@ class MutatorListView(generic.View):
             mutator_list.append({'name': mutator.name, 'id': mutator.id})
 
         return HttpResponse(json.dumps(mutator_list))
+
+class CloneFieldView(generic.View):
+    @authorized
+    def post(self, request, obj_id):
+        try:
+            obj = Field.objects.get(id=obj_id)
+            obj.user = request.user
+            obj.id = None
+            obj.save()
+        except Field.DoesNotExist:
+            return HttpResponse(json.dumps({'error': 'Field does not exist'}))
+
+        return HttpResponse(json.dumps(obj.id))
+
