@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import Condition from "@/components/automaton/rules/Condition";
+    import Condition from "@/components/automaton/rules/conditions/Condition";
     import Action from "./Action";
     export default {
         name: "Rule",

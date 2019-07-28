@@ -63,13 +63,18 @@ export default class CustomMutator {
 
 function checkCondition(calcValues, condition) {
     switch (condition.type) {
+        // case Const.condType.and:
+        //     if (operator(condition.child.operator,calcValues.liveNeighbors,condition.child.aliveCount)) {
+        //         return true
+        //     }
+        //     break
         case Const.condType.living:
-            if (operator(condition.operator,calcValues.liveNeighbors,condition.aliveCount)) {
+            if (operator(condition.child.operator, calcValues.liveNeighbors, condition.child.aliveCount)) {
                 return true
             }
             break
         case Const.condType.state:
-            if (calcValues.alive === condition.populated) {
+            if (calcValues.child.alive === condition.child.populated) {
                 return true
             }
             break
