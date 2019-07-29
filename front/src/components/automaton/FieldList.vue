@@ -3,6 +3,7 @@
     <div>
       <div class="title">Field List</div>
       <md-button @click="create" class="button">Add field</md-button>
+      <md-button @click="check_best" class="button">Check best fields</md-button>
       <ul class="list">
         <li v-for="field in fields" >
           <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} </router-link>
@@ -35,6 +36,10 @@
         },
 
         methods: {
+            check_best() {
+                this.$router.push("/field/rating/")
+            },
+
             delete_field(id) {
                 axios.delete(conf.API_URL + '/api/field/' + id)
                     .then(() =>{
@@ -48,6 +53,7 @@
                         alert(resp)
                     })
             },
+
             create() {
                 axios.post(conf.API_URL + '/api/field/')
                     .then((resp) => {
@@ -65,7 +71,7 @@
 
 .content
   color:  whitesmoke
-  display: inline-flex
+  display: inline-block
 
 .button
   background-color: #49A078
@@ -73,6 +79,7 @@
   width: 200px
   margin: 5px auto
   color: whitesmoke
+  border: 2px #58667c solid
 
 .title
   padding: 20px

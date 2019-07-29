@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div @click="add" class="add_new">+</div>
     <Condition :initial="c" ref="condition" v-for="c in conditions"></Condition>
+    <div @click="add" class="add_new">Add</div>
   </div>
 </template>
 

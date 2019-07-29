@@ -46,15 +46,15 @@
 </script>
 
 <style scoped lang="sass">
-  .rule_content
-    border: 2px darkgray solid
-    padding: 10px
-    display: flex
-    text-align: center
-  .block
-    border: 2px darkgray solid
-    padding: 10px
-  .exp
-    padding: 20px 10px
-    font-size: 20px
+.rule_content
+  border: 2px darkgray solid
+  padding: 10px
+  display: flex
+  text-align: center
+.block
+  border: 2px darkgray solid
+  padding: 10px
+.exp
+  padding: 20px 10px
+  font-size: 30px
 </style>

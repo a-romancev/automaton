@@ -62,20 +62,19 @@
 </script>
 
 <style scoped lang="sass">
-  .content
-    display: inline-block
-    background-color: #49A078
-    width: 65%
-    text-align: center
-    color: whitesmoke
-    height: 900px
-    overflow: auto
-    .block
-      text-align: center
-      display: flex
-      flex-direction: column
-      align-items: center
-      border: #58667c 5px solid
-      justify-content: center
-      overflow: auto
+.content
+  display: inline-block
+  background-color: #49A078
+  width: 65%
+  color: whitesmoke
+  height: 100%
+  overflow: auto
+.block
+  text-align: center
+  display: flex
+  flex-direction: column
+  align-items: center
+  border: #58667c 5px solid
+  justify-content: center
+  overflow: auto
 </style>

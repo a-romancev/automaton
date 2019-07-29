@@ -35,7 +35,8 @@
         <div> Field name:</div>
         <input type="text" v-model="name">
         <md-button @click="save" class=" button">Save field</md-button>
-        <div class="button">Share this field</div>
+        <div @click="clone" v-if="this.$store.getters.LOGON" class="button" >Clone this field</div>
+        <div v-if="this.$store.getters.LOGON" class="button">Rate this field</div>
       </div>
       <md-button @click="start" class="start_button button">Start</md-button>
 
@@ -73,8 +74,19 @@
         },
 
         methods: {
-            share() {
-
+            clone() {
+                axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/clone/')
+                    .then((resp) => {
+                        if (response.data.error) {
+                            alert(response.data.error)
+                            return
+                        }
+                        this.$router.push('/field/' + resp.data)
+                        alert('Cloned')
+                    })
+            },
+            rate() {
+                axios.post(conf.API_URL + '/api/field/rating/', data)
             },
 
             create_new_mutator() {

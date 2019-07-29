@@ -2,20 +2,8 @@ import json
 
 from django.http import HttpResponse
 from django.views import generic
-from automaton.models import Field, Mutator
+from automaton.models import Field, Mutator, FieldRating
 from secure.decorators import authorized
-
-
-class CreateFieldView(generic.View):
-    @authorized
-    def post(self, request):
-        field = json.loads(request.body)
-        if field['mutator_id'] is None:
-            return HttpResponse(json.dumps({'error':'You did not select a mutator'}))
-
-        Field.objects.create(data=field['data'], user=request.user, name=field['name'], mutator_id=field['mutator_id'])
-
-        return HttpResponse()
 
 
 class FieldView(generic.View):
@@ -27,7 +15,7 @@ class FieldView(generic.View):
                 data.append([])
                 for _ in range(18):
                     data[i].append(False)
-            obj = Field.objects.create(user=request.user, name='no name', data=data)
+            obj = Field.objects.create(user=request.user, name='no name', data=data, color="#49A078")
             return HttpResponse(json.dumps({'id':obj.id}))
 
         field = json.loads(request.body)
@@ -75,6 +63,23 @@ class FieldListView(generic.View):
         return HttpResponse(json.dumps(field_list))
 
 
+class FieldRatingView(generic.View):
+    @authorized
+    def get(self, request):
+        field_list = []
+        for field in FieldRating.objects.filter(user=request.user).order_by('rating'):
+            field_list.append({'rating': field.rating}, {'field': field.field})
+        return HttpResponse(json.dumps(field_list))
+
+    @authorized
+    def post(self, request, obj_id):
+        if not obj_id:
+            obj = FieldRating.objects.create(user=request.user, field=request.id, rating=request.rating)
+            return HttpResponse(json.dumps({'id': obj.id}))
+
+        return HttpResponse(json.dumps({'id': obj_id}))
+
+
 class MutatorView(generic.View):
     @authorized
     def post(self, request, obj_id=None):
@@ -111,6 +116,7 @@ class MutatorListView(generic.View):
             mutator_list.append({'name': mutator.name, 'id': mutator.id})
 
         return HttpResponse(json.dumps(mutator_list))
+
 
 class CloneFieldView(generic.View):
     @authorized
