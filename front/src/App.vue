@@ -4,6 +4,7 @@
       <router-link v-if="this.$store.getters.LOGON === false" class="header_item header_item_right" to='/login'>Login</router-link>
       <router-link v-if="this.$store.getters.LOGON" class="header_item header_item_right" to='/mutator_list'>My mutators</router-link>
       <router-link v-if="this.$store.getters.LOGON" class="header_item header_item_right" to='/field_list'>My fields</router-link>
+      <router-link v-if="this.$store.getters.LOGON" class="header_item header_item_right" to='/field/rating/'>Best fields</router-link>
       <router-link class="header_item header_item_left" to='/'>Home</router-link>
     </header>
     <router-view/>
