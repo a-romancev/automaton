@@ -45,4 +45,7 @@
 <style scoped lang="sass">
 .add_new
   cursor: pointer
+  &:hover
+    color: #912c1a
+    transition: color 0.2s
 </style>

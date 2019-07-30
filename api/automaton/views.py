@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views import generic
 from automaton.models import Field, Mutator, FieldRating
 from secure.decorators import authorized
+from django.db.models import Avg
 
 
 class FieldView(generic.View):
@@ -63,21 +64,14 @@ class FieldListView(generic.View):
         return HttpResponse(json.dumps(field_list))
 
 
-class FieldRatingView(generic.View):
+class FieldRatingListView(generic.View):
     @authorized
     def get(self, request):
         field_list = []
-        for field in FieldRating.objects.filter(user=request.user).order_by('rating'):
-            field_list.append({'rating': field.rating}, {'field': field.field})
+        for field in Field.objects.annotate(rating=Avg('field_ratings__rating')).order_by('rating'):
+            field_list.append({'name': field.name, 'id': field.id, 'rating': field.rating})
+
         return HttpResponse(json.dumps(field_list))
-
-    @authorized
-    def post(self, request, obj_id):
-        if not obj_id:
-            obj = FieldRating.objects.create(user=request.user, field=request.id, rating=request.rating)
-            return HttpResponse(json.dumps({'id': obj.id}))
-
-        return HttpResponse(json.dumps({'id': obj_id}))
 
 
 class MutatorView(generic.View):
@@ -131,3 +125,12 @@ class CloneFieldView(generic.View):
 
         return HttpResponse(json.dumps(obj.id))
 
+
+class RateFieldView(generic.View):
+    @authorized
+    def post(self, request, obj_id):
+        data = json.loads(request.body)
+        rating = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id, rating=1)
+        rating.update(rating=data['rating'])
+        rating.save()
+        return HttpResponse()

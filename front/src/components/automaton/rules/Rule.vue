@@ -51,10 +51,12 @@
   padding: 10px
   display: flex
   text-align: center
+  align-items: center
 .block
   border: 2px darkgray solid
   padding: 10px
 .exp
   padding: 20px 10px
   font-size: 30px
+
 </style>

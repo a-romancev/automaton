@@ -36,7 +36,7 @@
         <input type="text" v-model="name">
         <md-button @click="save" class=" button">Save field</md-button>
         <div @click="clone" v-if="this.$store.getters.LOGON" class="button" >Clone this field</div>
-        <div v-if="this.$store.getters.LOGON" class="button">Rate this field</div>
+        <div @click="rate" v-if="this.$store.getters.LOGON" class="button">Rate this field</div>
       </div>
       <md-button @click="start" class="start_button button">Start</md-button>
 
@@ -77,8 +77,8 @@
             clone() {
                 axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/clone/')
                     .then((resp) => {
-                        if (response.data.error) {
-                            alert(response.data.error)
+                        if (resp.data.error) {
+                            alert(resp.data.error)
                             return
                         }
                         this.$router.push('/field/' + resp.data)
@@ -86,7 +86,24 @@
                     })
             },
             rate() {
-                axios.post(conf.API_URL + '/api/field/rating/', data)
+
+                while (true) {
+                    let rate= prompt('Rate the field (1-5)')
+                    if (rate < 6 && rate > 0.99) {
+                        alert('Rated!')
+                        let data = {
+                            rating : rate
+                        }
+                        console.log(data)
+                        console.log(data.rating)
+                        console.log(conf.API_URL + '/api/field/' + this.$route.params.id + '/rate/')
+                        axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/rate/', data)
+                        break
+                    }
+                    else {
+                        alert('Must be between 1-5')
+                    }
+                }
             },
 
             create_new_mutator() {

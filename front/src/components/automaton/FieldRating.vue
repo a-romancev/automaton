@@ -4,7 +4,7 @@
       <div class="title">Best Fields</div>
       <ul class="list">
         <li v-for="field in fields">
-          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }}{{ field.rating }}</router-link>
+          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} ( {{ field.rating ? field.rating.toFixed(2): '-' }} )</router-link>
         </li>
       </ul>
     </div>
@@ -26,7 +26,7 @@
         name: "MutatorList",
         mounted() {
 
-            axios.get(conf.API_URL + '/api/field/rating/')
+            axios.get(conf.API_URL + '/api/field_rating_list/')
                 .then((resp) => { this.fields = resp.data } )
                 .catch((resp) =>{
                     alert(resp)

@@ -9,6 +9,7 @@
     <Living ref="child" v-if="this.type === typeConst.living" ></Living>
     <State ref="child" v-if="this.type === typeConst.state"></State>
     <And ref="child" v-if="this.type === typeConst.and" ></And>
+    <div class="bracket" v-if="this.type === typeConst.and" >All off the above</div>
 
   </div>
 </template>
