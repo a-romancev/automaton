@@ -1,6 +1,12 @@
 <template>
 
   <div class="content">
+    <div class="field_name">
+      {{this.name}}
+      <div class="creator_name">
+        (By {{this.$store.getters.LOGON_NAME}})
+      </div>
+    </div>
     <Automaton ref="automation"/>
     <div class="control-panel">
       <div class="switch">Control Panel</div>
@@ -60,7 +66,7 @@
                 resolution: 100,
                 density: 0.01,
                 checked: false,
-                name: "no name",
+                name: "",
                 mutators: [],
                 mutator_id: null,
                 color: "#49A078"
@@ -74,6 +80,22 @@
         },
 
         methods: {
+
+            init() {
+                axios.get(conf.API_URL + '/api/mutator_list/')
+                    .then((resp) => { this.mutators = resp.data } )
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
+
+                this.field = this.$refs.automation.init(
+                    parseInt(this.resolution),
+                    calcHeight(parseInt(this.resolution)),
+                    this.color
+                )
+                this.load(this.$route.params.id)
+            },
+
             clone() {
                 if (confirm('Add this field to your library?')) {
                     axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/clone/')
@@ -88,7 +110,6 @@
                 }
             },
             rate() {
-
                 while (true) {
                     let rate= prompt('Rate the field (Integer 1-5)')
                     if (rate === null) {
@@ -141,21 +162,6 @@
                         this.rules = response.data.rules
                         this.updateMutators()
                     })
-            },
-
-            init() {
-                axios.get(conf.API_URL + '/api/mutator_list/')
-                    .then((resp) => { this.mutators = resp.data } )
-                    .catch((resp) =>{
-                        alert(resp)
-                    })
-
-                this.field = this.$refs.automation.init(
-                    parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution)),
-                    this.color
-                )
-                this.load(this.$route.params.id)
             },
 
             create_new() {
@@ -236,6 +242,22 @@
 </script>
 
 <style scoped lang="sass">
+
+.field_name
+  color: #fefeff
+  margin: 10px
+  text-align: center
+  font-size: 20px
+  position: absolute
+  width: 100%
+  opacity: 0.7
+  -moz-user-select: none
+  -webkit-user-select: none
+  user-select: none
+
+.creator_name
+  font-size: 15px
+  color: #a9b2b6
 
 .content
   position: relative

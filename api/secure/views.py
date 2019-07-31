@@ -47,8 +47,8 @@ class LoginView(generic.View):
 
     def get(self, request):
         try:
-            Token.objects.get(key=request.COOKIES.get('token'))
+            obj = Token.objects.get(key=request.COOKIES.get('token'))
         except Token.DoesNotExist:
             return HttpResponseForbidden()
-        return HttpResponse()
+        return HttpResponse(obj.user)
 
