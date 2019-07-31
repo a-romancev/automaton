@@ -75,15 +75,17 @@
 
         methods: {
             clone() {
-                axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/clone/')
-                    .then((resp) => {
-                        if (resp.data.error) {
-                            alert(resp.data.error)
-                            return
-                        }
-                        this.$router.push('/field/' + resp.data)
-                        alert('Cloned')
-                    })
+                if (confirm('Add this field to your library?')) {
+                    axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/clone/')
+                        .then((resp) => {
+                            if (resp.data.error) {
+                                alert(resp.data.error)
+                                return
+                            }
+                            this.$router.push('/field/' + resp.data)
+                            alert('Cloned')
+                        })
+                }
             },
             rate() {
 
