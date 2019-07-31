@@ -2,7 +2,8 @@ export default {
     condType: {
         living: 1,
         state: 2,
-        and: 3
+        and: 3,
+        any :4,
     },
     operType: {
         eq: 1,

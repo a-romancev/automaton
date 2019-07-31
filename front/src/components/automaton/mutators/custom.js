@@ -64,6 +64,14 @@ export default class CustomMutator {
 function checkCondition(calcValues, condition) {
 
     switch (condition.type) {
+        case Const.condType.any:
+            for (let c of condition.child.conditions) {
+                if (checkCondition(calcValues, c)) {
+                    return true
+                }
+            }
+            return false
+
         case Const.condType.and:
             for (let c of condition.child.conditions) {
                 if (!checkCondition(calcValues, c)) {
@@ -71,11 +79,13 @@ function checkCondition(calcValues, condition) {
                 }
             }
             return true
+
         case Const.condType.living:
             if (operator(condition.child.operator, calcValues.liveNeighbors, condition.child.aliveCount)) {
                 return true
             }
             break
+
         case Const.condType.state:
             if (calcValues.alive === condition.child.populated) {
                 return true

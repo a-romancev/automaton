@@ -48,7 +48,7 @@
 
         data() {
             return {
-                resolution: 10,
+                resolution: 30,
                 density: 0.01,
             }
         },

@@ -62,6 +62,8 @@ body, html
   top: 0
   left: 0
   z-index: 5
+  -moz-user-select: none
+  -webkit-user-select: none
 
 .header_item
   font-size: 15px

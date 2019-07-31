@@ -5,13 +5,15 @@
       <option selected :value="typeConst.living">Living neighbours</option>
       <option :value="typeConst.state">Current state</option>
       <option :value="typeConst.and">And</option>
+      <option :value="typeConst.any">Any</option>
     </select>
     <Living ref="child" v-if="this.type === typeConst.living" ></Living>
     <State ref="child" v-if="this.type === typeConst.state"></State>
     <And ref="child" v-if="this.type === typeConst.and" ></And>
+    <Any ref="child" v-if="this.type === typeConst.any" ></Any>
     <div class="bracket" v-if="this.type === typeConst.and" >All off the above</div>
-
-  </div>
+    <div class="bracket" v-if="this.type === typeConst.any" >Any off the above</div>
+    </div>
 </template>
 
 <script>
@@ -19,10 +21,11 @@
   import State from "./State";
   import Living from "./Living";
   import And from "./And";
+  import Any from "./Any";
 
     export default {
         name: "Condition",
-        components: {And, Living, State},
+        components: {And, Any, Living, State},
         data() {
             return {
                 type: Const.condType.living,
