@@ -12,8 +12,8 @@
             {{mutator.name}}
           </option>
         </select>
-        <div class="button" @click="go_to(mutator_id)">Go to</div>
-        <div class="button" @click="create_new_mutator">Create new mutator</div>
+        <div class="button" v-if="this.$store.getters.LOGON" @click="go_to(mutator_id)">Go to</div>
+        <div class="button" v-if="this.$store.getters.LOGON" @click="create_new_mutator">Create new mutator</div>
         <div class="color_picker">
           Color <input @change="color_change" v-model="color" type="color">
         </div>
@@ -34,7 +34,7 @@
       <div class="control-panel__section">
         <div> Field name:</div>
         <input type="text" v-model="name">
-        <md-button @click="save" class=" button">Save field</md-button>
+        <md-button @click="save" v-if="this.$store.getters.LOGON" class=" button">Save field</md-button>
         <div @click="clone" v-if="this.$store.getters.LOGON" class="button" >Clone this field</div>
         <div @click="rate" v-if="this.$store.getters.LOGON" class="button">Rate this field</div>
       </div>
