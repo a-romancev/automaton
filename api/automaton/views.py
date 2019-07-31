@@ -131,7 +131,7 @@ class RateFieldView(generic.View):
     @authorized
     def post(self, request, obj_id):
         data = json.loads(request.body)
-        rating, created = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id, rating=1)
+        rating, created = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id)
         rating.rating = data['rating']
         rating.save()
         return HttpResponse()
