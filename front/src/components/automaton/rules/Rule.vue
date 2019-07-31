@@ -1,15 +1,19 @@
 <template>
   <div class="rule_content">
-    <condition ref="cond"/>
-    <br>
-    <action ref="action"/>
+    <div class="exp">If</div>
+    <div class="block">
+      <condition ref="cond"/>
+    </div>
+    <div class="exp">Then</div>
+    <div class="block">
+      <action ref="action"/>
+    </div>
   </div>
 </template>
 
 <script>
-    import Condition from "@/components/automaton/rules/Condition";
+    import Condition from "@/components/automaton/rules/conditions/Condition";
     import Action from "./Action";
-
     export default {
         name: "Rule",
         components: {Action, Condition},
@@ -39,11 +43,20 @@
             }
         }
     }
-
 </script>
 
 <style scoped lang="sass">
 .rule_content
   border: 2px darkgray solid
   padding: 10px
+  display: flex
+  text-align: center
+  align-items: center
+.block
+  border: 2px darkgray solid
+  padding: 10px
+.exp
+  padding: 20px 10px
+  font-size: 30px
+
 </style>

@@ -3,14 +3,15 @@
     <div class="register_block block">
       <div class="title">Register</div>
       Login <input v-model="login_reg" type="text"/>
-      Password <input v-model="password_reg" type="text"/>
-      Password again <input v-model="password_check" type="text"/>
+      Password <input @change="pass_not_match = false" v-model="password_reg" type="password"/>
+      Password again <input v-model="password_check" type="password"/>
+      <div v-if="pass_not_match" class="alert">Passwords do not match!</div>
       <md-button @click="register">Register</md-button>
     </div>
     <div class="login_block block">
       <div class="title">Login</div>
       Login<input v-model="login_in" type="text"/>
-      Password<input v-model="password_in" type="text"/>
+      Password<input v-model="password_in" type="password"/>
       <md-button @click="login">Login</md-button>
     </div>
   </div>
@@ -26,13 +27,18 @@
                 login_in: "",
                 password_reg: "",
                 password_in: "",
-                password_check: ""
+                password_check: "",
+                pass_not_match: false,
+                reg_success: false,
             }
         },
+        mounted(){},
+
         methods:{
             register() {
                 if (this.password_reg !== this.password_check) {
-                    alert("Passwords do not match!")
+                    this.pass_not_match = true
+
                     return
                 }
 
@@ -42,13 +48,14 @@
                             alert(resp.data.error)
                             return
                         }
-                        alert("register successful")
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {
                         console.log(resp)
                         alert(resp)
                     })
+
             },
 
             login() {
@@ -58,13 +65,14 @@
                             alert(resp.data.error)
                             return
                         }
-                        alert("login successful")
+                        this.$router.push('/')
 
                     })
                     .catch((resp) => {
                         console.log(resp)
                         alert(resp)
                     })
+
             }
         }
     }
@@ -94,5 +102,8 @@
 .title
   font-size: 30px
   padding: 10px
+
+.alert
+  color: red
 
 </style>
