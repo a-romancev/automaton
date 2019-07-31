@@ -21,7 +21,7 @@ class Mutator(models.Model):
 class FieldRating(models.Model):
     field = models.ForeignKey('Field', related_name='field_ratings', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='field_ratings', on_delete=models.CASCADE)
-    rating = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+    rating = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)], null=True)
 
     class Meta:
         unique_together = (("field", "user"),)

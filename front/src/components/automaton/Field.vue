@@ -94,7 +94,7 @@
                     if (rate === null) {
                         return
                     }
-                    if (rate <= 5 && rate >= 1 && Number.isInteger(rate)) {
+                    if (rate <= 5 && rate >= 1 && Number.isInteger(parseInt(rate))) {
                         alert('Rated!')
                         let data = {
                             rating : rate
