@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="any_content">
     <Condition :initial="c" ref="condition" v-for="c in conditions"></Condition>
     <div @click="add" class="add_new">Add</div>
   </div>
@@ -43,8 +43,10 @@
 </script>
 
 <style scoped lang="sass">
-.add_new
+
+.any_new
   cursor: pointer
+
   &:hover
     color: #912c1a
     transition: color 0.2s

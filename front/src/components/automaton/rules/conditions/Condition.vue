@@ -64,5 +64,14 @@
 </script>
 
 <style scoped lang="sass">
+  .condition_content
+    padding: 5px 10px
+    margin: 10px 0
+    border: 1px darkgray solid
+    border-radius: 1px
+    transition: background-color 0.1s, border 0.1s
+    &:hover
+      background: rgba(0, 0, 0, 0.1)
+      border: 1px dimgray solid
 
 </style>

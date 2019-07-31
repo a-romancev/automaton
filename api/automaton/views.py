@@ -36,10 +36,17 @@ class FieldView(generic.View):
     def get(self, request, obj_id):
         try:
             obj = Field.objects.get(id=obj_id)
+            field = {
+                'data': obj.data,
+                'name': obj.name,
+                'mutator_id': obj.mutator_id,
+                'mutator': {'rules': []},
+                'color': obj.color,
+                'username': obj.user.username,
+            }
             if obj.mutator:
-                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': obj.mutator.rules}, 'color': obj.color}
-            else:
-                field = {'data': obj.data, 'name': obj.name, 'mutator_id': obj.mutator_id, 'mutator': {'rules': []}, 'color': obj.color}
+                field['mutator'] = {'rules': obj.mutator.rules}
+
         except Field.DoesNotExist:
             return HttpResponse(json.dumps({'error': 'Field does not exist'}))
 

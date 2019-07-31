@@ -4,7 +4,7 @@
     <div class="field_name">
       {{this.name}}
       <div class="creator_name">
-        (By {{this.$store.getters.LOGON_NAME}})
+        (By {{username}})
       </div>
     </div>
     <Automaton ref="automation"/>
@@ -69,7 +69,8 @@
                 name: "",
                 mutators: [],
                 mutator_id: null,
-                color: "#49A078"
+                color: "#49A078",
+                username: ""
             }
         },
 
@@ -214,6 +215,7 @@
                         this.field.load(response.data.data)
                         this.rules = response.data.mutator.rules
                         this.color = response.data.color
+                        this.username = response.data.username
                         this.$refs.automation.set_color(response.data.color)
                         this.updateMutators()
                     })

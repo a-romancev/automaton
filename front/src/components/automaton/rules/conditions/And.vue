@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="and_content">
     <Condition :initial="c" ref="condition" v-for="c in conditions"></Condition>
     <div @click="add" class="add_new">Add</div>
   </div>
@@ -48,4 +48,5 @@
   &:hover
     color: #912c1a
     transition: color 0.2s
+
 </style>
