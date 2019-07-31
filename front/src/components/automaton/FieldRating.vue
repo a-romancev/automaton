@@ -4,7 +4,7 @@
       <div class="title">Best Fields</div>
       <ul class="list">
         <li v-for="field in fields">
-          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} ( {{ field.rating ? field.rating.toFixed(2): '-' }} )</router-link>
+          <router-link :to="{path: '/field/' + field.id}" class="link">{{ field.name }} [{{ field.rating.toFixed(2) }}]</router-link>
         </li>
       </ul>
     </div>

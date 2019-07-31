@@ -94,9 +94,6 @@
                         let data = {
                             rating : rate
                         }
-                        console.log(data)
-                        console.log(data.rating)
-                        console.log(conf.API_URL + '/api/field/' + this.$route.params.id + '/rate/')
                         axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/rate/', data)
                         break
                     }

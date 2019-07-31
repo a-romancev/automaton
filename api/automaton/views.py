@@ -68,8 +68,9 @@ class FieldRatingListView(generic.View):
     @authorized
     def get(self, request):
         field_list = []
-        for field in Field.objects.annotate(rating=Avg('field_ratings__rating')).order_by('rating'):
-            field_list.append({'name': field.name, 'id': field.id, 'rating': field.rating})
+        for field in Field.objects.annotate(rating=Avg('field_ratings__rating')).order_by('-rating'):
+            if field.rating:
+                field_list.append({'name': field.name, 'id': field.id, 'rating': field.rating})
 
         return HttpResponse(json.dumps(field_list))
 
@@ -130,7 +131,7 @@ class RateFieldView(generic.View):
     @authorized
     def post(self, request, obj_id):
         data = json.loads(request.body)
-        rating = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id, rating=1)
-        rating.update(rating=data['rating'])
+        rating, created = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id, rating=1)
+        rating.rating = data['rating']
         rating.save()
         return HttpResponse()
