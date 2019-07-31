@@ -90,8 +90,11 @@
             rate() {
 
                 while (true) {
-                    let rate= prompt('Rate the field (1-5)')
-                    if (rate < 6 && rate > 0.99) {
+                    let rate= prompt('Rate the field (Integer 1-5)')
+                    if (rate === null) {
+                        return
+                    }
+                    if (rate <= 5 && rate >= 1 && Number.isInteger(rate)) {
                         alert('Rated!')
                         let data = {
                             rating : rate
@@ -100,7 +103,7 @@
                         break
                     }
                     else {
-                        alert('Must be between 1-5')
+                        alert('Must be Integer(1-5)')
                     }
                 }
             },
