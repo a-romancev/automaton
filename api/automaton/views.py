@@ -15,7 +15,7 @@ class FieldView(generic.View):
             for i in range(10):
                 data.append([])
                 for _ in range(19):
-                    data[i].append(0)
+                    data[i].append("0")
             obj = Field.objects.create(user=request.user, name='no name', data=data, color="#49A078")
             return HttpResponse(json.dumps({'id':obj.id}))
 
