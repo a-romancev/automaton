@@ -8,7 +8,7 @@ export default class Field {
         for (let y = 0; y < this.height; y++) {
             this.data.push([])
             for (let x = 0; x < this.width; x++) {
-                this.data[y].push(false)
+                this.data[y].push(0)
             }
         }
     }

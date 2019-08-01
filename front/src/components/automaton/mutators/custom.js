@@ -87,7 +87,8 @@ function checkCondition(calcValues, condition) {
             break
 
         case Const.condType.state:
-            if (calcValues.alive === condition.child.populated) {
+            // console.log(calcValues.alive, condition.child.populated)
+            if ((calcValues.alive !== 0) === condition.child.populated) {
                 return true
             }
             break

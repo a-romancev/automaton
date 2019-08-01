@@ -12,5 +12,11 @@ export default {
         lt: 4,
         lte: 5,
         gte: 6
+    },
+    color: {
+        none: 0,
+        cyan : 1,
+        red: 2,
+        blue: 3
     }
 }
