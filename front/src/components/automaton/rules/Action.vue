@@ -1,20 +1,13 @@
 <template>
   <div class="action_content">
     <div>Action</div>
-    Populate
-  <select v-model="populate">
-    <option value="true">Populate</option>
-    <option value="false">Kill</option>
-  </select>
-  <div v-if="populate === 'true'">
     Color
-    <select  v-model="populate_color">
-      <option style="color: #49A078"  value=1>Cyan</option>
+    <select  v-model="populate">
+      <option style="color: #3c4556" value=0>None</option>
+      <option style="color: #49A078" value=1>Cyan</option>
       <option style="color: #962e38" value=2>Red</option>
       <option style="color: #303ca1" value=3>Blue</option>
     </select>
-  </div>
-
   </div>
 </template>
 
@@ -26,8 +19,7 @@
         components: {},
         data() {
             return {
-                populate: "true",
-                populate_color: Const.color.cyan
+                populate: Const.color.cyan.toString()
             }
         },
         props: {
@@ -38,21 +30,15 @@
         },
         methods: {
             save() {
-                if (this.populate === "true") {
-                    return {
-                    populate: this.populate_color
-                }}
                 return {
-                    populate: Const.color.none
+                    populate: parseInt(this.populate)
                 }
-
             },
             load(data) {
                 if (!data) {
                     return
                 }
-                this.populate_color = data.populate
-                this.populate = data.populate ? "true" : "false"
+                this.populate = data.populate.toString()
             }
         }
     }

@@ -32,20 +32,8 @@ export default class Renderer {
         let width = this.element.clientWidth / this.field.width
         for (let y in this.field.data) {
             for (let x in this.field.data[y]) {
-                if(this.field.data[y][x]) {
-                    if (this.field.data[y][x] == Const.color.cyan) {
-                        ctx.fillStyle = "#49A078"
-                        ctx.fillRect(x*width, y*height, width, height)
-                    }
-                    if (this.field.data[y][x] == Const.color.red) {
-                        ctx.fillStyle = "#962e38"
-                        ctx.fillRect(x*width, y*height, width, height)
-                    }
-                    if (this.field.data[y][x] == Const.color.blue) {
-                        ctx.fillStyle = "#303ca1"
-                        ctx.fillRect(x*width, y*height, width, height)
-                    }
-                }
+                ctx.fillStyle = Const.colorCode[field.data[x][y]]
+                ctx.fillRect(x*width, y*height, width, height)
             }
         }
 

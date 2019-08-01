@@ -18,5 +18,11 @@ export default {
         cyan : 1,
         red: 2,
         blue: 3
+    },
+    colorCode: {
+        0: "#3c4556",
+        1: "#49A078",
+        2: "#962e38",
+        3: "#303ca1"
     }
 }
