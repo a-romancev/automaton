@@ -1,8 +1,9 @@
 export default class DrawMutator {
 
-    constructor(field, component) {
+    constructor(field, component, color) {
         this.component = component
         this.field = field
+        this.color = color
         this.isMousePressed = false
 
         this.onMouseDown = (event) => {
@@ -61,7 +62,7 @@ export default class DrawMutator {
             return
         }
         let p = this.coordinate(event.layerX, event.layerY)
-        this.field.set(p.x, p.y, 1)
+        this.field.set(p.x, p.y, this.color)
     }
 
 }

@@ -32,7 +32,7 @@ export default class Renderer {
         let width = this.element.clientWidth / this.field.width
         for (let y in this.field.data) {
             for (let x in this.field.data[y]) {
-                ctx.fillStyle = Const.colorCode[field.data[x][y]]
+                ctx.fillStyle = Const.colorCode[this.field.get(x,y)]
                 ctx.fillRect(x*width, y*height, width, height)
             }
         }
