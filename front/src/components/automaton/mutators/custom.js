@@ -53,10 +53,11 @@ export default class CustomMutator {
                 if (i === 0 && j === 0) {
                     continue
                 }
-                if (!color_count[this.field.get(x+i, y+j)]) {
-                    color_count[this.field.get(x+i, y+j)] = 0
+                const color = this.field.get(x+i, y+j)
+                if (!color_count[color]) {
+                    color_count[color] = 0
                 }
-                color_count[this.field.get(x+i, y+j)] ++
+                color_count[color]++
             }
         }
         return color_count
@@ -83,7 +84,11 @@ function checkCondition(calcValues, condition) {
             return true
 
         case Const.condType.living:
-            if (operator(condition.child.operator, calcValues.liveNeighbors[condition.child.color], condition.child.aliveCount)) {
+            let val = calcValues.liveNeighbors[condition.child.color]
+            if (!val) {
+                val = 0
+            }
+            if (operator(condition.child.operator, val, condition.child.aliveCount)) {
                 return true
             }
             break

@@ -62,7 +62,7 @@ export default class DrawMutator {
             return
         }
         let p = this.coordinate(event.layerX, event.layerY)
-        this.field.set(p.x, p.y, this.color)
+        this.field.set(p.x, p.y, parseInt(this.color))
     }
 
 }

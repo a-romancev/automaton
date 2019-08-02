@@ -29,7 +29,7 @@
       </div>
       <div class="control-panel__section">
         <div>Resolution</div>
-        <input v-model="resolution" type="range" min="10" max="150" step="5">
+        <input v-model="resolution" type="range" min="10" max="1000" step="5">
         <div>{{ resolution }}</div>
         <md-button @click="create_new" class="button">Refill Field</md-button>
         <md-button @click="init" class="button">Reset field</md-button>
