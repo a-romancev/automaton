@@ -13,8 +13,6 @@ services:
       PG_HOST: db
     depends_on:
       - db
-    ports:
-      - 9999:9999
 
   nginx:
     image: nginx
@@ -24,7 +22,7 @@ services:
       - ./.bundle:/etc/nginx/bundle
 #      - /etc/letsencrypt:/etc/letsencrypt/
     ports:
-      - 9999:80
+      - 80:80
 
   db:
     image: postgres
