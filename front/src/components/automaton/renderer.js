@@ -1,3 +1,5 @@
+import Const from "@/components/automaton/mutators/const.js"
+
 export default class Renderer {
     constructor (canvasElement, field, color) {
         this.element = canvasElement
@@ -30,9 +32,8 @@ export default class Renderer {
         let width = this.element.clientWidth / this.field.width
         for (let y in this.field.data) {
             for (let x in this.field.data[y]) {
-                if(this.field.data[y][x]) {
-                    ctx.fillRect(x*width, y*height, width, height)
-                }
+                ctx.fillStyle = Const.colorCode[this.field.get(x,y)]
+                ctx.fillRect(x*width, y*height, width, height)
             }
         }
 

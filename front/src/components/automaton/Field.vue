@@ -20,13 +20,16 @@
         </select>
         <div class="button" v-if="this.$store.getters.LOGON" @click="go_to(mutator_id)">Go to</div>
         <div class="button" v-if="this.$store.getters.LOGON" @click="create_new_mutator">Create new mutator</div>
-        <div class="color_picker">
-          Color <input @change="color_change" v-model="color" type="color">
-        </div>
+        <select @change="updateMutators" v-model="color">
+          <option style="color: #3c4556" :value="colorConst.none">None</option>
+          <option style="color: #49A078" selected :value="colorConst.cyan">Cyan</option>
+          <option style="color: #962e38" :value="colorConst.red">Red</option>
+          <option style="color: #303ca1" :value="colorConst.blue">Blue</option>
+        </select>
       </div>
       <div class="control-panel__section">
         <div>Resolution</div>
-        <input v-model="resolution" type="range" min="10" max="150" step="5">
+        <input v-model="resolution" type="range" min="10" max="1000" step="5">
         <div>{{ resolution }}</div>
         <md-button @click="create_new" class="button">Refill Field</md-button>
         <md-button @click="init" class="button">Reset field</md-button>
@@ -51,6 +54,7 @@
 </template>
 
 <script>
+    import Const from "@/components/automaton/mutators/const.js"
     import Automaton from "./Automaton"
     import RandomGenerator from "@/components/automaton/generators/random.js"
     import DrawMutator from "@/components/automaton/mutators/draw.js"
@@ -69,8 +73,13 @@
                 name: "",
                 mutators: [],
                 mutator_id: null,
-                color: "#49A078",
+                color: 1,
                 username: ""
+            }
+        },
+        computed: {
+            colorConst() {
+                return Const.color
             }
         },
 
@@ -146,10 +155,6 @@
                 }
                 this.$router.push("/mutator/"+ id + "/")
 
-            },
-
-            color_change() {
-                this.$refs.automation.set_color(this.color)
             },
 
             realTimeMutators() {
@@ -229,7 +234,7 @@
                 if (this.mutator) {
                     this.mutator.stop()
                 }
-                this.draw = new DrawMutator(this.field, this.$refs.automation)
+                this.draw = new DrawMutator(this.field, this.$refs.automation, this.color)
                 this.mutator = new CustomMutator(this.field, this.rules)
                 this.draw.start()
             }

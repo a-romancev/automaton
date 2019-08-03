@@ -12,5 +12,17 @@ export default {
         lt: 4,
         lte: 5,
         gte: 6
+    },
+    color: {
+        none: 0,
+        cyan : 1,
+        red: 2,
+        blue: 3
+    },
+    colorCode: {
+        0: "#3c4556",
+        1: "#49A078",
+        2: "#962e38",
+        3: "#303ca1"
     }
 }

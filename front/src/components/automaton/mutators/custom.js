@@ -45,25 +45,28 @@ export default class CustomMutator {
         }
     }
 
+
     liveNeighbors(x, y) {
-        let count = 0
+        let color_count = {}
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 if (i === 0 && j === 0) {
                     continue
                 }
-                if (this.field.get(x+i, y+j)) {
-                    count++
+                const color = this.field.get(x+i, y+j)
+                if (!color_count[color]) {
+                    color_count[color] = 0
                 }
+                color_count[color]++
             }
         }
-        return count
+        return color_count
     }
 }
 
 function checkCondition(calcValues, condition) {
-
     switch (condition.type) {
+
         case Const.condType.any:
             for (let c of condition.child.conditions) {
                 if (checkCondition(calcValues, c)) {
@@ -81,7 +84,11 @@ function checkCondition(calcValues, condition) {
             return true
 
         case Const.condType.living:
-            if (operator(condition.child.operator, calcValues.liveNeighbors, condition.child.aliveCount)) {
+            let val = calcValues.liveNeighbors[condition.child.color]
+            if (!val) {
+                val = 0
+            }
+            if (operator(condition.child.operator, val, condition.child.aliveCount)) {
                 return true
             }
             break

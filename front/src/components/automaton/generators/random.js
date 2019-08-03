@@ -5,7 +5,7 @@ export default class RandomGenerator {
     }
 
     generate() {
-        this.field.iterate((x, y, value) => {
+        this.field.iterate((x, y) => {
             this.field.set(x, y, Math.random() < this.density)
         })
     }

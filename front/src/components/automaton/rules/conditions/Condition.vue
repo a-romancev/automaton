@@ -2,7 +2,7 @@
   <div class="condition_content">
     <div>Condition</div>
     <select v-model="type">
-      <option selected :value="typeConst.living">Living neighbours</option>
+      <option selected :value="typeConst.living">Neighbours</option>
       <option :value="typeConst.state">Current state</option>
       <option :value="typeConst.and">And</option>
       <option :value="typeConst.any">Any</option>
