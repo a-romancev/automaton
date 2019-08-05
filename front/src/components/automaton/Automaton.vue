@@ -25,10 +25,6 @@ export default {
             return this.field
         },
 
-        set_color(color){
-            this.renderer.set_color(color)
-        },
-
     }
 }
 </script>

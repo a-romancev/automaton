@@ -17,15 +17,10 @@ export default class Renderer {
         window.cancelAnimationFrame(this.id)
     }
 
-    set_color (color) {
-        this.color = color
-    }
-
     render () {
         this.element.width = this.element.clientWidth
         this.element.height = this.element.clientHeight
         const ctx = this.element.getContext('2d')
-        ctx.fillStyle = this.color
         ctx.strokeStyle = "#3c4556"
 
         let height = this.element.clientHeight / this.field.height

@@ -221,7 +221,6 @@
                         this.rules = response.data.mutator.rules
                         this.color = response.data.color
                         this.username = response.data.username
-                        this.$refs.automation.set_color(response.data.color)
                         this.updateMutators()
                     })
 
