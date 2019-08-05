@@ -72,8 +72,7 @@
             init() {
                 this.field = this.$refs.automation.init(
                     parseInt(this.resolution),
-                    calcHeight(parseInt(this.resolution)),
-                    "#49A078"
+                    calcHeight(parseInt(this.resolution))
                 )
                 if (this.$route.params.id) {
                     this.load(this.$route.params.id)
@@ -99,7 +98,7 @@
                 if (this.mutator) {
                     this.mutator.stop()
                 }
-                this.draw = new DrawMutator(this.field, this.$refs.automation)
+                this.draw = new DrawMutator(this.field, this.$refs.automation, 1)
                 this.mutator = new GOLMutator(this.field, this.rules)
                 this.draw.start()
             }

@@ -12,16 +12,15 @@ export default {
     beforeCreate() {
         this.field = null
         this.renderer = null
-        this.color = "#49A078"
     },
 
     methods: {
-        init(width, height, color){
+        init(width, height){
             if (this.renderer) {
                 this.renderer.stop()
             }
             this.field = new Field(width, height)
-            this.renderer = new Renderer(this.$refs.canvas, this.field, color)
+            this.renderer = new Renderer(this.$refs.canvas, this.field)
             this.renderer.start()
             return this.field
         },

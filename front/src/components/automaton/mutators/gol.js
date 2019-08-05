@@ -38,11 +38,11 @@ export default class GOLMutator {
             return
         }
         if (!alive && neighbors === 3) {
-            this.bufferField.set(x, y, true)
+            this.bufferField.set(x, y, 1)
             return
         }
 
-        this.bufferField.set(x, y, false)
+        this.bufferField.set(x, y, 0)
     }
 
     liveNeighbors(x, y) {
