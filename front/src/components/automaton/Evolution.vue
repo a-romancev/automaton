@@ -14,8 +14,13 @@
 
       <div class="switch">Control Panel</div>
       <div class="control-panel__title">Control panel</div>
-
       <div class="control-panel__section">
+      <select @change="updateMutators" v-model="color">
+        <option style="color: #3c4556" :value="colorConst.none">None</option>
+        <option style="color: #49A078" selected :value="colorConst.cyan">Cyan</option>
+        <option style="color: #962e38" :value="colorConst.red">Red</option>
+        <option style="color: #303ca1" :value="colorConst.blue">Blue</option>
+      </select>
       <div>Resolution</div>
       <input v-model="resolution" type="range" min="10" max="250" step="5">
       <div>{{ resolution }}</div>
@@ -42,6 +47,7 @@
     import GOLMutator from "@/components/automaton/mutators/gol.js"
     import axios from "axios"
     import conf from "@/conf.js"
+    import Const from "@/components/automaton/mutators/const.js"
 
     export default {
         name: 'Evolution',
@@ -50,6 +56,12 @@
             return {
                 resolution: 30,
                 density: 0.01,
+                color: 1
+            }
+        },
+        computed: {
+            colorConst() {
+                return Const.color
             }
         },
 
@@ -98,7 +110,7 @@
                 if (this.mutator) {
                     this.mutator.stop()
                 }
-                this.draw = new DrawMutator(this.field, this.$refs.automation, 1)
+                this.draw = new DrawMutator(this.field, this.$refs.automation, this.color)
                 this.mutator = new GOLMutator(this.field, this.rules)
                 this.draw.start()
             }
