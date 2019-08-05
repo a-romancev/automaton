@@ -17,7 +17,7 @@
 
       <div class="control-panel__section">
       <div>Resolution</div>
-      <input v-model="resolution" type="range" min="10" max="150" step="5">
+      <input v-model="resolution" type="range" min="10" max="250" step="5">
       <div>{{ resolution }}</div>
       <md-button @click="init" class="button">Create new field</md-button>
       </div>
