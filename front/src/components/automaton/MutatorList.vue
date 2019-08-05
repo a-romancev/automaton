@@ -6,7 +6,7 @@
       <ul class="list">
         <li v-for="mutator in mutators">
           <router-link :to="{path: '/mutator/' + mutator.id}" class="link">{{ mutator.name }}</router-link>
-          <a @click="delete_mutator(mutator.id, mutator.name)" class="cross">X</a>
+          <a @click="delete_mutator(mutator.id, mutator.name)" class="cross material-icons">clear</a>
         </li>
       </ul>
     </div>
@@ -85,17 +85,19 @@
   list-style-type: none
   padding-left: 0
   line-height: 30px
+  height: 800px
+  overflow: auto
 
 .cross
   text-decoration: none
   cursor: pointer
   font-size: 20px
-  position: absolute
-  padding-left: 20px
+  padding-left: 10px
+  position: relative
+  top: 3px
   &:hover
-    font-size: 22px
     color: #50b385
-    transition: color, font-size 0.1s
+    transition: color 0.2s
     text-decoration: none
 
 

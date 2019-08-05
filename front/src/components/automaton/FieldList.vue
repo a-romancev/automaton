@@ -92,16 +92,19 @@
   list-style-type: none
   padding-left: 0
   line-height: 30px
+  height: 800px
+  overflow: auto
 
 .cross
   text-decoration: none
   cursor: pointer
   font-size: 20px
-  position: absolute
-  padding-left: 20px
+  padding-left: 10px
+  position: relative
+  top: 3px
   &:hover
     color: #50b385
-    transition: color, font-size 0.1s
+    transition: color 0.2s
     text-decoration: none
 
 

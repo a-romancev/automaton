@@ -69,6 +69,7 @@
   color: whitesmoke
   height: 100%
   overflow: auto
+
 .block
   text-align: center
   display: flex
