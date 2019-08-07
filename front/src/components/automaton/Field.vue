@@ -20,17 +20,15 @@
         </select>
         <div class="button" v-if="this.$store.getters.LOGON" @click="go_to(mutator_id)">Go to</div>
         <div class="button" v-if="this.$store.getters.LOGON" @click="create_new_mutator">Create new mutator</div>
-        <select @change="updateMutators" v-model="color">
-          <option style="color: #3c4556" :value="colorConst.none">None</option>
-          <option style="color: #49A078" selected :value="colorConst.cyan">Cyan</option>
-          <option style="color: #962e38" :value="colorConst.red">Red</option>
-          <option style="color: #303ca1" :value="colorConst.blue">Blue</option>
+        <select @change="updateMutators" v-model="color" >
+          <option selected :style="{'background-color': colorCodeConst[color_id]}" v-for="color_id in colorConst" :value="color_id">{{colorNameConst[color_id]}}</option>
         </select>
       </div>
       <div class="control-panel__section">
         <div>Resolution</div>
-        <input v-model="resolution" type="range" min="10" max="250" step="5">
+        <input v-model="resolution" type="range" min="10" max="350" step="5">
         <div>{{ resolution }}</div>
+        <div v-if="resolution > 100" class="warning">Resolution > 100 may cause lag</div>
         <md-button @click="create_new" class="button">Refill Field</md-button>
         <md-button @click="init" class="button">Reset field</md-button>
       </div>
@@ -73,13 +71,19 @@
                 name: "",
                 mutators: [],
                 mutator_id: null,
-                color: 1,
+                color: Const.color.cyan.toString(),
                 username: ""
             }
         },
         computed: {
             colorConst() {
                 return Const.color
+            },
+            colorCodeConst() {
+                return Const.colorCode
+            },
+            colorNameConst() {
+                return Const.colorName
             }
         },
 
@@ -264,6 +268,10 @@
 .creator_name
   font-size: 15px
   color: #a9b2b6
+
+.warning
+  color: red
+  font-size: 10px
 
 .content
   position: relative

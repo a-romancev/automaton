@@ -6,8 +6,10 @@
     </div>
     <md-button @click="createNewRule">Create new rule</md-button>
     <div class="block">
-      <rule ref="rule" :initial="rule" v-for="rule in rules">
-      </rule>
+      <div v-for="(rule, index) in rules">
+        <rule ref="rule" :initial="rule" ></rule>
+        <div @click="delete_rule(index)">Del</div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +37,14 @@
                     alert(resp)
                 })
         },
+
         methods: {
+            delete_rule(index) {
+                console.log(index)
+                this.$delete(this.rules, 1)
+                // this.rules.splice(index,1)
+            },
+
             save() {
                 let data = {
                     name: this.name,

@@ -18,6 +18,7 @@
       <div>Resolution</div>
       <input v-model="resolution" type="range" min="10" max="250" step="5">
       <div>{{ resolution }}</div>
+      <div v-if="resolution > 100" class="warning">Resolution > 100 may cause lag</div>
       <md-button @click="init" class="button">Create new field</md-button>
       </div>
 
@@ -135,6 +136,10 @@
   -moz-user-select: none
   -webkit-user-select: none
   user-select: none
+
+.warning
+  color: red
+  font-size: 10px
 
 .explanation
   font-size: 12px

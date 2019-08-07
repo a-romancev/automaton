@@ -1,12 +1,9 @@
 <template>
   <div>
   Color
-  <select @change="test" v-model="color">
-    <option style="color: #3c4556" selected :value="colorConst.none">None</option>
-    <option style="color: #49A078" :value="colorConst.cyan">Cyan</option>
-    <option style="color: #962e38" :value="colorConst.red">Red</option>
-    <option style="color: #303ca1" :value="colorConst.blue">Blue</option>
-  </select>
+    <select v-model="color" >
+      <option selected :style="{'background-color': colorCodeConst[color_id]}" v-for="color_id in colorConst" :value="color_id">{{colorNameConst[color_id]}}</option>
+    </select>
   <select v-model="operator">
     <option selected :value="operConst.eq"> = </option>
     <option :value="operConst.neq"> != </option>
@@ -21,13 +18,14 @@
 
 <script>
     import Const from "@/components/automaton/mutators/const.js"
+
     export default {
         name: "Living",
         data() {
             return {
                 operator: Const.operType.eq.toString(),
                 aliveCount: 0,
-                color: {}
+                color: Const.color.cyan.toString()
             }
         },
 
@@ -40,6 +38,9 @@
             },
             colorCodeConst(){
                 return Const.color
+            },
+            colorNameConst() {
+                return Const.colorName
             }
 
         },

@@ -2,11 +2,8 @@
   <div class="action_content">
     <div>Action</div>
     Color
-    <select  v-model="populate">
-      <option style="color: #3c4556" value=0>None</option>
-      <option style="color: #49A078" value=1>Cyan</option>
-      <option style="color: #962e38" value=2>Red</option>
-      <option style="color: #303ca1" value=3>Blue</option>
+    <select v-model="populate">
+      <option selected :style="{'background-color': colorCodeConst[color_id]}" v-for="color_id in colorConst" :value="color_id">{{colorNameConst[color_id]}}</option>
     </select>
   </div>
 </template>
@@ -22,6 +19,19 @@
                 populate: Const.color.cyan.toString()
             }
         },
+
+        computed: {
+            colorConst() {
+                return Const.color
+            },
+            colorCodeConst() {
+                return Const.colorCode
+            },
+            colorNameConst() {
+                return Const.colorName
+            }
+        },
+
         props: {
             initial: Object
         },
