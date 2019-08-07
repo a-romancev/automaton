@@ -6,7 +6,7 @@
     </div>
     <md-button @click="createNewRule">Create new rule</md-button>
     <div class="block">
-      <div v-for="(rule, index) in rules">
+      <div v-for="(rule, index) in rules" v-bind:key="index">{{index}}
         <rule ref="rule" :initial="rule" ></rule>
         <div @click="delete_rule(index)">Del</div>
       </div>
@@ -41,7 +41,7 @@
         methods: {
             delete_rule(index) {
                 console.log(index)
-                this.$delete(this.rules, 1)
+                this.$delete(this.rules, index)
                 // this.rules.splice(index,1)
             },
 

@@ -37,7 +37,7 @@
                 return Const.color
             },
             colorCodeConst(){
-                return Const.color
+                return Const.colorCode
             },
             colorNameConst() {
                 return Const.colorName
