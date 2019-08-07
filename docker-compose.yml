@@ -13,7 +13,7 @@ services:
       PG_HOST: db
     depends_on:
       - db
-    ports:
+#    ports:
 #      - 9999:9999
 
   nginx:
