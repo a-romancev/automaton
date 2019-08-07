@@ -18,20 +18,23 @@ export default {
         cyan : 1,
         red: 2,
         blue: 3,
-        orange: 4
+        orange: 4,
+        green: 5
     },
     colorCode: {
         0: "#3c4556",
         1: "#49A078",
-        2: "#962e38",
-        3: "#303ca1",
-        4: "#e88615"
+        2: "#bc343e",
+        3: "#3844d7",
+        4: "#e88615",
+        5: "#09a000",
     },
     colorName: {
         0: "None",
         1: "Cyan",
         2: "Red",
         3: "Blue",
-        4: "Orange"
+        4: "Orange",
+        5: "Green",
     }
 }
