@@ -108,7 +108,8 @@
                 this.draw = new DrawMutator(this.field, this.$refs.automation, this.color)
                 this.mutator = new GOLMutator(this.field, this.rules)
                 this.draw.start()
-            }
+            },
+
         }
     }
 

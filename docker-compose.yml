@@ -13,6 +13,7 @@ services:
       PG_HOST: db
     depends_on:
       - db
+      - mq
     ports:
       - 9999:9999
 
@@ -36,3 +37,15 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: postgres
       PGDATA: /var/app/data
+
+  mq:
+    image: rabbitmq:3.7.18
+    restart: on-failure
+
+  worker:
+    build: worker
+    restart: on-failure
+    volumes:
+      - ./worker:/var/worker
+    depends_on:
+      - mq

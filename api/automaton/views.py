@@ -5,6 +5,7 @@ from django.views import generic
 from automaton.models import Field, Mutator, FieldRating
 from secure.decorators import authorized
 from django.db.models import Avg
+import pika
 
 
 class FieldView(generic.View):
@@ -141,4 +142,17 @@ class RateFieldView(generic.View):
         rating, created = FieldRating.objects.get_or_create(user=request.user, field_id=obj_id)
         rating.rating = data['rating']
         rating.save()
+        return HttpResponse()
+
+
+class GenGifView(generic.View):
+    @authorized
+    def post(self, request, obj_id):
+
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='mq'))
+        channel = connection.channel()
+        channel.queue_declare(queue='gif')
+        channel.basic_publish(exchange='', routing_key='gif', body=json.dumps({'id': obj_id}))
+        connection.close()
+
         return HttpResponse()

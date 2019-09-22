@@ -45,6 +45,9 @@
         <div @click="clone" v-if="this.$store.getters.LOGON" class="button" >Clone this field</div>
         <div @click="rate" v-if="this.$store.getters.LOGON" class="button">Rate this field</div>
       </div>
+      <div class="control-panel__section">
+        <md-button @click="genGif" class="button">generate gif</md-button>
+      </div>
       <md-button @click="start" class="start_button button">Start</md-button>
 
     </div>
@@ -240,7 +243,21 @@
                 this.draw = new DrawMutator(this.field, this.$refs.automation, this.color)
                 this.mutator = new CustomMutator(this.field, this.rules)
                 this.draw.start()
-            }
+            },
+
+            genGif() {
+                axios.post(conf.API_URL + '/api/field/' + this.$route.params.id + '/gen_gif/')
+                    .then((resp) => {
+                        if (resp.data.error) {
+                            alert(resp.data.error)
+                            return
+                        }
+                        alert("Sent!")
+                    })
+                    .catch((resp) =>{
+                        alert(resp)
+                    })
+            },
         }
     }
 
