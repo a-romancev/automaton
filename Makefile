@@ -9,6 +9,10 @@ bundle:
 start:
 	docker-compose up -d
 
+.PHONY: build
+build:
+	docker-compose build
+
 .PHONY: stop
 stop:
 	docker-compose down

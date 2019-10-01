@@ -5,6 +5,7 @@ urlpatterns = [
     path('field/', views.FieldView.as_view(), name='create_field'),
     path('field/<int:obj_id>/clone/', views.CloneFieldView.as_view(), name='field_clone'),
     path('field/<int:obj_id>/rate/', views.RateFieldView.as_view(), name='field_rate'),
+    path('field/<int:obj_id>/gen_gif/', views.GenGifView.as_view(), name='gen_gif'),
     path('field/<int:obj_id>/', views.FieldView.as_view(), name='field'),
     path('field_list/', views.FieldListView.as_view(), name='field_list'),
     path('field_rating_list/', views.FieldRatingListView.as_view(), name='field_rating_list'),
